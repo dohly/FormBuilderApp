@@ -1,5 +1,7 @@
 ﻿using Domain.Gateways;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Domain.UseCases
@@ -14,9 +16,19 @@ namespace Domain.UseCases
         }
         public async Task<FormDefinition> GetFormDefinitionById(string id) =>
             new FormDefinition(id, await repository.GetFieldDefinitionsByFormId(id));
-        public async Task<string> CreateNewFormDefinition(FormDefinition definition)
+        public async Task<string> CreateNewFormDefinition(FormDefinition form)
         {
-            return await repository.CreateFormDefinition(definition);
+            if (HasDuplicates(form.FieldDefinitions, x => x.FieldId))
+            {
+                throw new InvalidOperationException();
+            }
+            return await repository.CreateFormDefinition(form);
+        }
+        private bool HasDuplicates<T>(IEnumerable<T> items, Func<T, object> selector)
+        {            
+            var allValues=items.Select(selector);
+            var withoutDuplicates = allValues.Distinct();
+            return allValues.Count() != withoutDuplicates.Count();
         }
     }
 }
