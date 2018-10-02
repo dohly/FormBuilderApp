@@ -2,17 +2,18 @@
 using System.Collections.Generic;
 namespace Domain
 {
-    public class FormDefinition 
+    public class FormDefinition : BaseEntity
     {
-        public string Id { get; }
+        public string Name { get; }
         public IEnumerable<FieldDefinition> FieldDefinitions { get; }
-        public FormDefinition(IEnumerable<FieldDefinition> fieldDefinitions)
+        public FormDefinition(string name, IEnumerable<FieldDefinition> fieldDefinitions)
         {
-            FieldDefinitions = fieldDefinitions ?? throw new ArgumentNullException(nameof(fieldDefinitions));
+            Id = Guid.NewGuid();
+            FieldDefinitions = fieldDefinitions;
+            Name = name;
         }
-        public FormDefinition(string id,IEnumerable<FieldDefinition> fieldDefinitions) : this(fieldDefinitions)
+        public FormDefinition(Guid id, string name, IEnumerable<FieldDefinition> fieldDefinitions) : this(name, fieldDefinitions)
         {
-            if (string.IsNullOrEmpty(id)) throw new ArgumentNullException(nameof(id));
             this.Id = id;
         }
     }

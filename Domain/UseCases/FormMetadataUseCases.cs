@@ -18,7 +18,7 @@ namespace Domain.UseCases
             new FormDefinition(id, await repository.GetFieldDefinitionsByFormId(id));
         public async Task<string> CreateNewFormDefinition(FormDefinition form)
         {
-            if (HasDuplicates(form.FieldDefinitions, x => x.FieldId))
+            if (HasDuplicates(form.FieldDefinitions, x => x.FieldKey))
             {
                 throw new InvalidOperationException();
             }
