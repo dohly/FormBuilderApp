@@ -8,7 +8,7 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class MetadataController : ControllerBase
     {
         // GET api/values
         [HttpGet]
