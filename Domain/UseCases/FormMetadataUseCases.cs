@@ -31,18 +31,8 @@ namespace Domain.UseCases
             if (!await guard.CanCreateNewForms(requester))
             {
                 throw new System.UnauthorizedAccessException();
-            }
-            if (HasDuplicates(form.FieldDefinitions, x => x.FieldKey))
-            {
-                throw new InvalidOperationException();
-            }
+            }            
             await repository.CreateFormDefinition(form);
-        }
-        private bool HasDuplicates<T>(IEnumerable<T> items, Func<T, object> selector)
-        {            
-            var allValues=items.Select(selector);
-            var withoutDuplicates = allValues.Distinct();
-            return allValues.Count() != withoutDuplicates.Count();
-        }
+        }        
     }
 }

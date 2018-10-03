@@ -4,8 +4,8 @@ namespace Domain.Entities
 {
     public class TextFieldDefinition : FieldDefinition
     {
-        public TextFieldDefinition(Guid formDefinitionId, string fieldKey, bool optional, int displayOrder)
-            : base(formDefinitionId,fieldKey, optional, displayOrder) { }
+        internal TextFieldDefinition(Guid formDefinitionId, string fieldKey, string name, bool optional, int displayOrder)
+            : base(formDefinitionId,fieldKey,name, optional, displayOrder) { }
 
         public override FieldType Type => FieldType.Text;
     }
