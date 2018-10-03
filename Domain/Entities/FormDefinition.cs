@@ -1,18 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
-namespace Domain
+using System.Linq;
+
+namespace Domain.Entities
 {
     public class FormDefinition : BaseEntity
     {
+        private List<FieldDefinition> fields = new List<FieldDefinition>();
+
         public string Name { get; }
-        public IEnumerable<FieldDefinition> FieldDefinitions { get; }
-        public FormDefinition(string name, IEnumerable<FieldDefinition> fieldDefinitions)
+        public IEnumerable<FieldDefinition> FieldDefinitions => fields;
+        public Guid? NextVersionId { get; }
+        public FormDefinition(string name)
         {
             Id = Guid.NewGuid();
-            FieldDefinitions = fieldDefinitions;
-            Name = name;
+            Name = string.IsNullOrEmpty(name) ? 
+                throw new ArgumentException("Can't be empty",nameof(name)) : name;
         }
-        public FormDefinition(Guid id, string name, IEnumerable<FieldDefinition> fieldDefinitions) : this(name, fieldDefinitions)
+        public FormDefinition(Guid id, string name) : this(name)
         {
             this.Id = id;
         }

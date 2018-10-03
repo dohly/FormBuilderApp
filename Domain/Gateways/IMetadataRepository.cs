@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using Domain.Entities;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Domain.Gateways
@@ -6,7 +8,8 @@ namespace Domain.Gateways
     public interface IMetadataRepository
     {
         Task<IEnumerable<FormDefinition>> GetFormTemplates();
-        Task<IEnumerable<FieldDefinition>> GetFieldDefinitionsByFormId(string formTemplateId);
-        Task<string> CreateFormDefinition(FormDefinition definition);
+        Task<IEnumerable<FieldDefinition>> GetFieldDefinitionsByFormId(Guid FormDefinitionId);
+        Task CreateFormDefinition(FormDefinition definition);
+        Task<FormDefinition> GetFormDefinitionById(Guid id);
     }
 }

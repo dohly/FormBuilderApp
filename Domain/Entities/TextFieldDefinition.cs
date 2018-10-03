@@ -1,9 +1,11 @@
-﻿namespace Domain
+﻿using System;
+
+namespace Domain.Entities
 {
     public class TextFieldDefinition : FieldDefinition
     {
-        public TextFieldDefinition(string id, bool optional, int displayOrder)
-            : base(id, optional, displayOrder) { }
+        public TextFieldDefinition(Guid formDefinitionId, string fieldKey, bool optional, int displayOrder)
+            : base(formDefinitionId,fieldKey, optional, displayOrder) { }
 
         public override FieldType Type => FieldType.Text;
     }

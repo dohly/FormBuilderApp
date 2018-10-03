@@ -1,4 +1,5 @@
-﻿using Domain.Gateways;
+﻿using Domain.Entities;
+using Domain.Gateways;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,20 +10,33 @@ namespace Domain.UseCases
     public class FormMetadataUseCases
     {
         private readonly IMetadataRepository repository;
+        private readonly ISecurityService guard;
 
-        public FormMetadataUseCases(IMetadataRepository repository)
+        public FormMetadataUseCases(IMetadataRepository repository, ISecurityService guard)
         {
             this.repository = repository;
+            this.guard = guard;
         }
-        public async Task<FormDefinition> GetFormDefinitionById(string id) =>
-            new FormDefinition(id, await repository.GetFieldDefinitionsByFormId(id));
-        public async Task<string> CreateNewFormDefinition(FormDefinition form)
+        public async Task<FormDefinition> GetFormDefinition(User requester, Guid id)
         {
+            if (!await guard.CanRetrieveFormDefinition(requester, id))
+            {
+                throw new System.UnauthorizedAccessException();
+            }
+            var form = await repository.GetFormDefinitionById(id);            
+            return form;
+        }
+        public async Task CreateNewFormDefinition(User requester,FormDefinition form)
+        {            
+            if (!await guard.CanCreateNewForms(requester))
+            {
+                throw new System.UnauthorizedAccessException();
+            }
             if (HasDuplicates(form.FieldDefinitions, x => x.FieldKey))
             {
                 throw new InvalidOperationException();
             }
-            return await repository.CreateFormDefinition(form);
+            await repository.CreateFormDefinition(form);
         }
         private bool HasDuplicates<T>(IEnumerable<T> items, Func<T, object> selector)
         {            
