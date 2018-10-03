@@ -8,7 +8,8 @@ namespace Domain.Gateways
 {
     public interface ISecurityService
     {
-        Task<bool> CanRetrieveFormDefinition(User user, Guid formDefinitionId);
+        Task<bool> CanRetrieveSpecificFormDefinition(User user, Guid formDefinitionId);
+        Task<bool> CanRetrieveFormDefinitions(User user);
         Task<bool> CanCreateNewForms(User requester);
     }
 }

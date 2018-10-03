@@ -15,7 +15,7 @@ namespace Domain.Entities
             (serializedValue) =>
                 Optional && string.IsNullOrEmpty(serializedValue) ?
                         true
-                        : validator(serializedValue);
+                        : validator == null ? true : validator(serializedValue);
         public abstract FieldType Type { get; }
         internal FieldDefinition(Guid formDefinitionId,
             string key,

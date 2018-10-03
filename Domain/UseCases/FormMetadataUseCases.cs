@@ -17,11 +17,21 @@ namespace Domain.UseCases
             this.repository = repository;
             this.guard = guard;
         }
+        public async Task<IEnumerable<FormDefinition>> GetFormDefinitions(User requester)
+        {
+            //There is no such requirement in the task.
+            //I just want to show difference between repository and use-case.
+            if (!await guard.CanRetrieveFormDefinitions(requester))
+            {
+                throw new System.UnauthorizedAccessException();
+            }
+            return await repository.GetFormDefinitions();
+        }
         public async Task<FormDefinition> GetFormDefinition(User requester, Guid id)
         {
             //There is no such requirement in the task.
             //I just want to show difference between repository and use-case.
-            if (!await guard.CanRetrieveFormDefinition(requester, id))
+            if (!await guard.CanRetrieveSpecificFormDefinition(requester, id))
             {
                 throw new System.UnauthorizedAccessException();
             }

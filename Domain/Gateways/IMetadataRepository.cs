@@ -7,7 +7,7 @@ namespace Domain.Gateways
 {
     public interface IMetadataRepository
     {
-        Task<IEnumerable<FormDefinition>> GetFormTemplates();
+        Task<IEnumerable<FormDefinition>> GetFormDefinitions();
         Task<IEnumerable<FieldDefinition>> GetFieldDefinitionsByFormId(Guid FormDefinitionId);
         Task CreateFormDefinition(FormDefinition definition);
         Task<FormDefinition> GetFormDefinitionById(Guid id);

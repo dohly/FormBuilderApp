@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Domain.Entities;
+using Domain.Gateways;
+using Domain.UseCases;
+using Infrastructure.DTOs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers
@@ -11,35 +15,24 @@ namespace WebApi.Controllers
     public class MetadataController : ControllerBase
     {
         // GET api/values
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        [HttpGet("Forms")]
+        public async Task<ActionResult<IEnumerable<FormDefinitionDTO>>> Get(
+            [FromServices]IMetadataRepository repository,
+            [FromServices]ISecurityService guard
+            )
         {
-            return new string[] { "value1", "value2" };
+            var user = new User() { Name = "Someone" };
+            var result = await (new FormMetadataUseCases(repository, guard).GetFormDefinitions(user));
+            return Ok(result.Select(x => x.ToDTO()));
         }
-
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        [HttpGet("Forms/{id}")]
+        public async Task<ActionResult<FormDefinition>> GetSpecific(Guid id,
+            [FromServices]IMetadataRepository repository,
+            [FromServices]ISecurityService guard
+            )
         {
-            return "value";
-        }
-
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            var user = new User() { Name = "Someone" };
+            return Ok(await new FormMetadataUseCases(repository, guard).GetFormDefinition(user, id));
         }
     }
 }
