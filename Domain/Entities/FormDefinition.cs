@@ -10,24 +10,26 @@ namespace Domain.Entities
 
         public string Name { get; }
         public IEnumerable<FieldDefinition> FieldDefinitions => fields;
+        public FieldDefinition this[string fieldKey] =>
+            this.FieldDefinitions.FirstOrDefault(x => x.FieldKey == fieldKey);
         public Guid? NextVersionId { get; }
         public FormDefinition(string name)
         {
             Id = Guid.NewGuid();
-            Name = string.IsNullOrEmpty(name) ? 
-                throw new ArgumentException("Can't be empty",nameof(name)) : name;
+            Name = string.IsNullOrEmpty(name) ?
+                throw new ArgumentException("Can't be empty", nameof(name)) : name;
         }
         public FormDefinition(Guid id, string name) : this(name)
         {
             this.Id = id;
         }
-        public FormDefinition WithTextField(string key, string displayName, bool optional)
+        public FormDefinition WithTextField(string key, string displayName, bool optional, Validator validator=null)
         {
             if (fields.Any(x => x.FieldKey == key || x.FieldName == displayName))
             {
                 throw new InvalidOperationException("Can't add duplicate field");
             }
-            this.fields.Add(new TextFieldDefinition(this.Id, key, displayName, optional, this.fields.Count));
+            this.fields.Add(new TextFieldDefinition(this.Id, key, displayName, this.fields.Count, optional, validator));
             return this;
         }
     }
