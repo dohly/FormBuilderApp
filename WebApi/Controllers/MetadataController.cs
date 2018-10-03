@@ -14,25 +14,24 @@ namespace WebApi.Controllers
     [ApiController]
     public class MetadataController : ControllerBase
     {
+        private MetadataUseCases useCases;
+        public MetadataController(IMetadataRepository repository, ISecurityService guard)
+        {
+            useCases = new MetadataUseCases(repository, guard);
+        }
         // GET api/values
         [HttpGet("Forms")]
-        public async Task<ActionResult<IEnumerable<FormDefinitionDTO>>> Get(
-            [FromServices]IMetadataRepository repository,
-            [FromServices]ISecurityService guard
-            )
+        public async Task<ActionResult<IEnumerable<FormDefinitionDTO>>> Get()
         {
             var user = new User() { Name = "Someone" };
-            var result = await (new FormMetadataUseCases(repository, guard).GetFormDefinitions(user));
+            var result = await useCases.GetFormDefinitions(user);
             return Ok(result.Select(x => x.ToDTO()));
         }
         [HttpGet("Forms/{id}")]
-        public async Task<ActionResult<FormDefinition>> GetSpecific(Guid id,
-            [FromServices]IMetadataRepository repository,
-            [FromServices]ISecurityService guard
-            )
+        public async Task<ActionResult<FormDefinition>> GetSpecific(Guid id)
         {
             var user = new User() { Name = "Someone" };
-            return Ok(await new FormMetadataUseCases(repository, guard).GetFormDefinition(user, id));
+            return Ok((await useCases.GetFormDefinition(user, id)).ToDTO());
         }
     }
 }

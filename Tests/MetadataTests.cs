@@ -11,8 +11,8 @@ namespace Tests
 {
     public class MetadataTests
     {
-        private FormMetadataUseCases metadataUseCases =
-            new FormMetadataUseCases(new InMemoryMetadataRepository(), new DummyGuard());
+        private MetadataUseCases metadataUseCases =
+            new MetadataUseCases(new InMemoryMetadataRepository(), new DummyGuard());
         private User admin = new User() { Name = "Admin" };
         private User firedEmployee = new User() { Name = "Fired employee" };
         private User regularUser = new User() { Name = "Employee" };

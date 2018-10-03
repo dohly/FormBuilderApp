@@ -35,7 +35,7 @@ namespace WebApi
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, apiXml);
                 c.IncludeXmlComments(xmlPath);                
             });
-            services.AddScoped<Domain.Gateways.IMetadataRepository, Infrastructure.InMemoryMetadataRepository>();
+            services.AddSingleton<Domain.Gateways.IMetadataRepository, Infrastructure.InMemoryMetadataRepository>();
             services.AddScoped<Domain.Gateways.ISecurityService, Infrastructure.DummyGuard>();
         }
 

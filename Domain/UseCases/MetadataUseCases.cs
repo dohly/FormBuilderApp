@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace Domain.UseCases
 {
-    public class FormMetadataUseCases
+    public class MetadataUseCases
     {
         private readonly IMetadataRepository repository;
         private readonly ISecurityService guard;
 
-        public FormMetadataUseCases(IMetadataRepository repository, ISecurityService guard)
+        public MetadataUseCases(IMetadataRepository repository, ISecurityService guard)
         {
             this.repository = repository;
             this.guard = guard;
@@ -20,7 +20,7 @@ namespace Domain.UseCases
         public async Task<IEnumerable<FormDefinition>> GetFormDefinitions(User requester)
         {
             //There is no such requirement in the task.
-            //I just want to show difference between repository and use-case.
+            //I just want to show difference between 'repository' and 'use-case'.
             if (!await guard.CanRetrieveFormDefinitions(requester))
             {
                 throw new System.UnauthorizedAccessException();
