@@ -4,6 +4,7 @@ using Domain.UseCases;
 using Infrastructure;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -56,6 +57,19 @@ namespace Tests
                 metadataUseCases.CreateNewFormDefinition(firedEmployee, sampleForm));
         }
 
+        //There is no such requirement in the task.
+        //I want to show difference between repository and use-case.
+        [Fact]
+        public Task FiredEmployeeCantAccessToFormList()
+            =>Assert.ThrowsAsync<UnauthorizedAccessException>(() =>
+                metadataUseCases.GetFormDefinitions(firedEmployee));
+        [Fact]
+        public async Task AdminAndRegularUserCanAccessToFormList()
+        { 
+            var r1=await  metadataUseCases.GetFormDefinitions(admin);
+            var r2=await metadataUseCases.GetFormDefinitions(regularUser);
+            Assert.Equal(r1.Count(), r2.Count());
+        }
 
     }
 }
