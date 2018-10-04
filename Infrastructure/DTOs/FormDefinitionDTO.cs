@@ -6,7 +6,8 @@ namespace Infrastructure.DTOs
 {
     public class FormDefinitionDTO
     {
-        public Guid Id { get; internal set; }
-        public string Name { get; internal set; }
+        public Guid Id { get; set; }
+        public string Name { get; set; }
+        public IEnumerable<FieldDefinitionDTO> Fields { get; set; }
     }
 }
