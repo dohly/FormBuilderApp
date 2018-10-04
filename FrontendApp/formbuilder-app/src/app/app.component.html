@@ -1,10 +1,17 @@
 <mat-toolbar color="primary">
-  <span>Form builder app</span>
+  <span translate>APP_NAME</span>
   <span class="example-fill-remaining-space"></span>
-  <span>
-    <button mat-icon-button>
-      <mat-icon aria-label="Example icon-button with a heart icon">settings</mat-icon>
-    </button>
+  <span class="language-selector">
+    <ng-select bindLabel="name" bindValue="id" [clearable]="false" [searchable]="false" [items]="languages" [(ngModel)]="selectedLang">
+      <ng-template ng-label-tmp let-item="item">
+        <img height="16" [src]="'/assets/'+item.id+'.png'" />
+        {{item.name}}
+      </ng-template>
+      <ng-template ng-option-tmp let-item="item">
+        <img height="16" width="16" [src]="'/assets/'+item.id+'.png'" />
+        {{item.name}}
+      </ng-template>
+    </ng-select>
   </span>
 </mat-toolbar>
 <router-outlet></router-outlet>
