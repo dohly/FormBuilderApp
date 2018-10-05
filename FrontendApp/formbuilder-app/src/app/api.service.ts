@@ -20,4 +20,5 @@ export class ApiService {
   public authenticate = (login, password) => this.http.post<{ token: string }>(this.url('/api/auth'), { login, password });
   private url = (relative) => this.apiHost + relative;
   public getFormDefinitions = () => this.http.get<FormDefinition[]>(this.url('/api/metadata'));
+  public getFormDefinition = (id) => this.http.get<FormDefinition>(this.url('/api/metadata/' + id));
 }

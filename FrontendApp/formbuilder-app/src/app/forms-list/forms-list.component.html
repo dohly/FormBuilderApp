@@ -21,6 +21,7 @@
           <div class="form-definition-symbol"> {{element.symbol}} </div>
           <div class="form-definition-name"> {{element.name}} </div>
           <div class="form-definition-weight"> {{element.weight}} </div>
+          <a mat-raised-button [routerLink]="['/fill-form', element.id]">Fill data</a>
         </div>
         <div class="form-definition-description">
           {{element.description}}

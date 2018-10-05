@@ -22,6 +22,7 @@ import { NotifierModule } from 'angular-notifier';
 import { MatTableModule } from '@angular/material/table';
 import { BearerInterceptor } from './bearerInterceptor';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
+import { FillFormComponent } from './fill-form/fill-form.component';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -31,7 +32,8 @@ export function createTranslateLoader(http: HttpClient) {
     InitializerComponent,
     FormsListComponent,
     PageNotFoundComponent,
-    AccessDeniedComponent
+    AccessDeniedComponent,
+    FillFormComponent
   ],
   imports: [
     NotifierModule.withConfig({

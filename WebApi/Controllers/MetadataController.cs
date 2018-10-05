@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Domain.Entities;
@@ -34,6 +35,21 @@ namespace WebApi.Controllers
          {
              var result = await useCases.GetFormDefinitions(currentUser);
              return Ok(result.Select(x => x.ToDTO()));
-         });        
+         });
+        /// <summary>
+        /// Get specific form definition
+        /// </summary>
+        /// <response code="200">Form definition</response>
+        /// <response code="401">Invalid token</response> 
+        /// <response code="500">Server error</response> 
+        [HttpGet("{id}")]
+        [Authorize]
+        [ProducesResponseType(typeof(FormDefinitionDTO), 200)]
+        public Task<IActionResult> Get(Guid id)
+            => this.SafeExecute(async () =>
+            {
+                var result = await useCases.GetFormDefinition(currentUser, id);
+                return Ok(result.ToDTO());
+            });
     }
 }
