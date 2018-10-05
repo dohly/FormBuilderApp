@@ -4,5 +4,9 @@
   "API_ADDRESS": "API URL",
   "CONNECT": "Connect & next",
   "CONNECTING": "Connecting...",
-  "CONNECT_ERROR": "Couldn't connect"
+  "CONNECT_ERROR": "Couldn't connect. You've specified wrong address or backend is not running.",
+  "LOGIN": "Log in",
+  "USERNAME": "Username",
+  "PASSWORD": "Password",
+  "SELECT_TEST_USER": "Use test credentials"
 }

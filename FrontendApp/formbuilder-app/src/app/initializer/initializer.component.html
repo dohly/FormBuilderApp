@@ -1,7 +1,6 @@
 <mat-card>
   <mat-horizontal-stepper [linear]="true" #stepper>
     <mat-step [stepControl]="apiAddessForm">
-
       <mat-card>
         <form [formGroup]="apiAddessForm">
           <ng-template matStepLabel>{{'SET_API_ADDRESS'|translate}}</ng-template>
@@ -16,13 +15,19 @@
     </mat-step>
     <mat-step [stepControl]="loginForm">
       <form [formGroup]="loginForm">
-        <ng-template matStepLabel>Fill out your address</ng-template>
+        <ng-template matStepLabel>{{'LOGIN'|translate}}</ng-template>
         <mat-form-field>
-          <input matInput placeholder="Address" formControlName="secondCtrl" required>
+          <input matInput placeholder="{{'USERNAME'|translate}}" formControlName="login" required>
         </mat-form-field>
+        <mat-form-field>
+          <input matInput type="password" placeholder="{{'PASSWORD'|translate}}" formControlName="password" required>
+        </mat-form-field>
+        <ng-select appendTo="body" class="test-user-selector" placeholder="{{'SELECT_TEST_USER'|translate}}" [items]="testUsers|async" bindLabel="name" (change)="selectTestUser($event)">
+
+        </ng-select>
         <div>
           <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
+          <button mat-button (click)="login()">{{'LOGIN'|translate}}</button>
         </div>
       </form>
     </mat-step>

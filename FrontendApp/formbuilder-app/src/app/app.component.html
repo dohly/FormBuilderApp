@@ -2,7 +2,7 @@
   <span translate>APP_NAME</span>
   <span class="example-fill-remaining-space"></span>
   <span class="language-selector">
-    <ng-select bindLabel="name" bindValue="id" [clearable]="false" [searchable]="false" [items]="languages" [(ngModel)]="selectedLang">
+    <ng-select class="custom" bindLabel="name" bindValue="id" [clearable]="false" [searchable]="false" [items]="languages" [(ngModel)]="selectedLang">
       <ng-template ng-label-tmp let-item="item">
         <img height="16" [src]="'/assets/'+item.id+'.png'" />
         {{item.name}}
@@ -12,6 +12,12 @@
         {{item.name}}
       </ng-template>
     </ng-select>
+  </span>
+  <span *ngIf="isLoggedIn()">
+    {{getUserName()}}
+    <button mat-icon-button (click)="logout()">
+      <mat-icon>exit_to_app</mat-icon>
+    </button>
   </span>
 </mat-toolbar>
 <router-outlet></router-outlet>

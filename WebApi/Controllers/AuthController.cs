@@ -24,6 +24,7 @@ namespace WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet("TestAccounts")]
+        [ProducesResponseType(typeof(IEnumerable<User>), 200)]
         public IEnumerable<User> GetTestUsers()
         {
             return DummyGuard.TestUsers;
@@ -37,17 +38,20 @@ namespace WebApi.Controllers
         /// <response code="401">Invalid credentials</response> 
         /// <response code="500">Something is wrong on server</response> 
         [HttpPost]
-        [ProducesResponseType(typeof(string), 200)]
+        [ProducesResponseType(typeof(TokenDto), 200)]
         public async Task<IActionResult> Post([FromBody]UserCredentials credentials,
             [FromServices]ISecurityService guard,
             [FromServices]IConfiguration config)
         {
-            var user=await guard.GetUserByCredentials(credentials.Login, credentials.Password);
+            var user = await guard.GetUserByCredentials(credentials.Login, credentials.Password);
             if (user == null)
             {
                 return Unauthorized();
             }
-            return Ok(IssueJWT(user, config));
+            return Ok(new TokenDto
+            {
+                Token = IssueJWT(user, config)
+            });
         }
         private string IssueJWT(User user, IConfiguration config)
         {
@@ -59,7 +63,7 @@ namespace WebApi.Controllers
             var claims = new[]
             {
                 new Claim(ClaimTypes.Name, user.Name)
-            };           
+            };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
