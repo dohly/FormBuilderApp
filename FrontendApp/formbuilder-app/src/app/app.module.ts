@@ -21,6 +21,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { NotifierModule } from 'angular-notifier';
 import { MatTableModule } from '@angular/material/table';
 import { BearerInterceptor } from './bearerInterceptor';
+import { AccessDeniedComponent } from './access-denied/access-denied.component';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -29,7 +30,8 @@ export function createTranslateLoader(http: HttpClient) {
     AppComponent,
     InitializerComponent,
     FormsListComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    AccessDeniedComponent
   ],
   imports: [
     NotifierModule.withConfig({

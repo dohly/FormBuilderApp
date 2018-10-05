@@ -1,5 +1,6 @@
 {
   "APP_NAME": "Form Builder APP",
+  "ACCESS_DENIED":"Access denied",
   "SET_API_ADDRESS": "Setup API (backend) address",
   "API_ADDRESS": "API URL",
   "CONNECT": "Connect & next",

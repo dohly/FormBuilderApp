@@ -1,5 +1,6 @@
 {
   "APP_NAME": "Построитель форм",
+  "ACCESS_DENIED":"Доступ запрещен",
   "SET_API_ADDRESS": "Укажите адрес АПИ",
   "API_ADDRESS": "API URL",
   "CONNECT": "Подключиться",
