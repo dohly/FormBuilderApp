@@ -33,11 +33,11 @@
       </form>
     </mat-step>
     <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      You are now done.
+      <ng-template matStepLabel>{{'DONE'|translate}}</ng-template>
+      {{'READY_TO_WORK'|translate}}
       <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
+        <button mat-button matStepperPrevious>{{'BACK'|translate}}</button>
+        <a routerLink="/" mat-button (click)="stepper.reset()">{{'START'|translate}}</a>
       </div>
     </mat-step>
   </mat-horizontal-stepper>

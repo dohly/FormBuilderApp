@@ -10,5 +10,8 @@
   "USERNAME": "Username",
   "PASSWORD": "Password",
   "SELECT_TEST_USER": "Use test credentials",
-  "INVALID_CREDENTIALS": "Invalid credentials"
+  "INVALID_CREDENTIALS": "Invalid credentials",
+  "DONE": "Done",
+  "READY_TO_WORK": "Congratulations! Now you can start work",
+  "START": "Get started"
 }

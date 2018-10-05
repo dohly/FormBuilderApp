@@ -10,5 +10,8 @@
   "USERNAME": "Логин",
   "PASSWORD": "Пароль",
   "SELECT_TEST_USER": "Тестовый аккаунт",
-  "INVALID_CREDENTIALS": "Неверный логин/пароль"
+  "INVALID_CREDENTIALS": "Неверный логин/пароль",
+  "DONE": "Готово",
+  "READY_TO_WORK": "Ура! Теперь можно начать работу",
+  "START": "Начать"
 }
