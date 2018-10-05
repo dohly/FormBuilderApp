@@ -9,21 +9,23 @@ namespace Domain.Entities
         private List<FieldDefinition> fields = new List<FieldDefinition>();
 
         public string Name { get; }
+        public string Description { get; }
         public IEnumerable<FieldDefinition> FieldDefinitions => fields;
         public FieldDefinition this[string fieldKey] =>
             this.FieldDefinitions.FirstOrDefault(x => x.FieldKey == fieldKey);
         public Guid? NextVersionId { get; }
-        public FormDefinition(string name)
+        public FormDefinition(string name, string description = null)
         {
             Id = Guid.NewGuid();
             Name = string.IsNullOrEmpty(name) ?
                 throw new ArgumentException("Can't be empty", nameof(name)) : name;
+            Description = description;
         }
-        public FormDefinition(Guid id, string name) : this(name)
+        public FormDefinition(Guid id, string name, string description) : this(name, description)
         {
             this.Id = id;
         }
-        public FormDefinition WithTextField(string key, string displayName, bool optional, Validator validator=null)
+        public FormDefinition WithTextField(string key, string displayName, bool optional, Validator validator = null)
         {
             if (fields.Any(x => x.FieldKey == key || x.FieldName == displayName))
             {

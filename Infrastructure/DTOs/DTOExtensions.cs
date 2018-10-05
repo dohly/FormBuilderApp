@@ -13,6 +13,7 @@ namespace Infrastructure.DTOs
             {
                 Id = def.Id,
                 Name = def.Name,
+                Description = def.Description,
                 Fields = def.FieldDefinitions.Select(fd => fd.ToDTO()).ToList()
             };
         public static FieldDefinitionDTO ToDTO(this FieldDefinition def)

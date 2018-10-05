@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Domain.Entities;
 using Domain.Gateways;
@@ -19,9 +20,15 @@ namespace WebApi.Controllers
         {
             useCases = new MetadataUseCases(repository, guard);
         }
-        // GET api/values
-        [HttpGet("Forms")]
+        /// <summary>
+        /// Get form definitions
+        /// </summary>
+        /// <response code="200">Form definitions</response>
+        /// <response code="401">Invalid token</response> 
+        /// <response code="500">Server error</response> 
+        [HttpGet]
         [Authorize]
+        [ProducesResponseType(typeof(IEnumerable<FormDefinitionDTO>),200)]
         public Task<IActionResult> Get()
             => this.SafeExecute(async () =>
          {

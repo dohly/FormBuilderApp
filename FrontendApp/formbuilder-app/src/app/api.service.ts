@@ -4,6 +4,7 @@ import {
   tap
 } from 'rxjs/operators';
 import { User } from './models/user';
+import { FormDefinition } from './models/formDefinition';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class ApiService {
     this.http.get(apiHost + '/api/ping')
       .pipe(tap(() => this.apiHost = apiHost))
   public getAvailableTestAccounts = () => this.http.get<User[]>(this.url('/api/auth/testaccounts'));
-  public getToken = (login, password) => this.http.post<{ token: string }>(this.url('/api/auth'), { login, password });
+  public authenticate = (login, password) => this.http.post<{ token: string }>(this.url('/api/auth'), { login, password });
   private url = (relative) => this.apiHost + relative;
+  public getFormDefinitions = () => this.http.get<FormDefinition[]>(this.url('/api/metadata'));
 }

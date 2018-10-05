@@ -14,11 +14,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NotifierModule } from 'angular-notifier';
+import { MatTableModule } from '@angular/material/table';
+import { BearerInterceptor } from './bearerInterceptor';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -37,6 +39,7 @@ export function createTranslateLoader(http: HttpClient) {
       }
     }),
     NgSelectModule,
+    MatTableModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
@@ -59,6 +62,11 @@ export function createTranslateLoader(http: HttpClient) {
     })
   ],
   providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: BearerInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

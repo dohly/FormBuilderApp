@@ -13,5 +13,9 @@
   "INVALID_CREDENTIALS": "Invalid credentials",
   "DONE": "Done",
   "READY_TO_WORK": "Congratulations! Now you can start work",
-  "START": "Get started"
+  "START": "Get started",
+  "FORMS-LIST": {
+    "NAME": "Form name",
+    "FIELDS_COUNT": "Fields count"
+  }
 }

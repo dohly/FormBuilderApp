@@ -1,0 +1,43 @@
+table {
+  width: 100%;
+}
+
+tr.example-detail-row {
+  height: 0;
+}
+
+tr.form-definition-row:not(.example-expanded-row):hover {
+  background: #f5f5f5;
+}
+
+tr.form-definition-row:not(.example-expanded-row):active {
+  background: #efefef;
+}
+
+.form-definition-row td {
+  border-bottom-width: 0;
+}
+
+.form-definition-detail {
+  overflow: hidden;
+  display: flex;
+}
+
+.form-definition-diagram {
+  min-width: 80px;
+  border: 2px solid black;
+  padding: 8px;
+  font-weight: lighter;
+  margin: 8px 0;
+  height: 104px;
+}
+
+.form-definition-symbol {
+  font-weight: bold;
+  font-size: 40px;
+  line-height: normal;
+}
+
+.form-definition-description {
+  padding: 16px;
+}

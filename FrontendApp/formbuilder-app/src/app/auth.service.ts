@@ -5,7 +5,7 @@ import { User } from './models/user';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/internal/operators/tap';
 import { Router } from '@angular/router';
-const gettoken = () => localStorage.getItem('token');
+import { gettoken } from './shared.functions';
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +30,7 @@ export class AuthService {
     return obj['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'];
   }
 
-  public login = ({ login, password }) => this.api.getToken(login, password)
+  public login = ({ login, password }) => this.api.authenticate(login, password)
     .pipe(tap(({ token }) => localStorage.setItem('token', token)))
   public logout = () => {
     localStorage.removeItem('token');
