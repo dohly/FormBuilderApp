@@ -1,4 +1,8 @@
 {
-  "APP_NAME":"Form Builder APP",
-  "SET_API_ADDRESS":"Setup API (backend) address"
+  "APP_NAME": "Form Builder APP",
+  "SET_API_ADDRESS": "Setup API (backend) address",
+  "API_ADDRESS": "API URL",
+  "CONNECT": "Connect & next",
+  "CONNECTING": "Connecting...",
+  "CONNECT_ERROR": "Couldn't connect"
 }

@@ -18,6 +18,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { NotifierModule } from 'angular-notifier';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -29,6 +30,12 @@ export function createTranslateLoader(http: HttpClient) {
     PageNotFoundComponent
   ],
   imports: [
+    NotifierModule.withConfig({
+      theme: 'material',
+      behaviour: {
+        autoHide: 5000
+      }
+    }),
     NgSelectModule,
     BrowserModule,
     BrowserAnimationsModule,
