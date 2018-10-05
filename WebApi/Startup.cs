@@ -49,6 +49,7 @@ namespace WebApi
                     Encoding.UTF8.GetBytes(secret))
                     };
                 });
+            services.AddCors();
             services.AddMvc()
                 .AddJsonOptions(options =>
                 {
@@ -74,6 +75,14 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+
+            app.UseCors(options =>
+                options
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials());
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -83,9 +92,7 @@ namespace WebApi
                 app.UseHsts();
             }
             app.UseAuthentication();
-            app.UseHttpsRedirection();
             app.UseSwagger();
-
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
