@@ -4,11 +4,11 @@
   <span class="language-selector">
     <ng-select class="custom" bindLabel="name" bindValue="id" [clearable]="false" [searchable]="false" [items]="languages" [(ngModel)]="selectedLang">
       <ng-template ng-label-tmp let-item="item">
-        <img height="16" [src]="'/assets/'+item.id+'.png'" />
+        <img height="16" [src]="'assets/'+item.id+'.png'" />
         {{item.name}}
       </ng-template>
       <ng-template ng-option-tmp let-item="item">
-        <img height="16" width="16" [src]="'/assets/'+item.id+'.png'" />
+        <img height="16" width="16" [src]="'assets/'+item.id+'.png'" />
         {{item.name}}
       </ng-template>
     </ng-select>
