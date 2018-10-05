@@ -32,7 +32,6 @@ export class AuthService {
 
   public login = ({ login, password }) => this.api.getToken(login, password)
     .pipe(tap(({ token }) => localStorage.setItem('token', token)))
-    .subscribe(() => this.router.navigate(['']))
   public logout = () => {
     localStorage.removeItem('token');
     this.router.navigate(['init']);

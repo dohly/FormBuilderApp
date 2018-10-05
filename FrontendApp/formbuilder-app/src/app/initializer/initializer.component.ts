@@ -42,10 +42,18 @@ export class InitializerComponent implements OnInit {
         },
         (err) => {
           console.error(err);
-          this.notify.notify('error', this.translate.instant('CONNECT_ERROR'));
+          this.connectError();
         }).add(() => this.connecting = false);
   }
-  public login = () => this.auth.login(this.loginForm.value);
+  public login = () => this.auth.login(this.loginForm.value).subscribe(
+    () => this.stepper.next(),
+    (err) => {
+      if (err && err.status === 401) {
+        this.notify.notify('error', this.translate.instant('INVALID_CREDENTIALS'));
+      } else {
+        this.connectError();
+      }
+    })
   public selectTestUser(selectedUser: User) {
     if (selectedUser) {
       const { login, password } = selectedUser;
@@ -54,4 +62,5 @@ export class InitializerComponent implements OnInit {
       this.loginForm.patchValue({ login: '', password: '' });
     }
   }
+  private connectError = () => this.notify.notify('error', this.translate.instant('CONNECT_ERROR'));
 }

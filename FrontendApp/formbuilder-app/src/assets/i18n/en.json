@@ -6,7 +6,9 @@
   "CONNECTING": "Connecting...",
   "CONNECT_ERROR": "Couldn't connect. You've specified wrong address or backend is not running.",
   "LOGIN": "Log in",
+  "BACK": "Back",
   "USERNAME": "Username",
   "PASSWORD": "Password",
-  "SELECT_TEST_USER": "Use test credentials"
+  "SELECT_TEST_USER": "Use test credentials",
+  "INVALID_CREDENTIALS": "Invalid credentials"
 }
