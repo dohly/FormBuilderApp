@@ -26,6 +26,9 @@ export class ApiService {
     this.url('/api/auth'),
     { login, password },
     this.skipInterceptor)
+  public saveForm = (formDefinitionId, formObj) => this.http.post(
+    this.url('/api/values/' + formDefinitionId),
+    formObj)
   private url = (relative) => this.apiHost + relative;
   public getFormDefinitions = () => this.http.get<FormDefinition[]>(this.url('/api/metadata'));
   public getFormDefinition = (id) => this.http.get<FormDefinition>(this.url('/api/metadata/' + id));

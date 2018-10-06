@@ -15,16 +15,18 @@ namespace Infrastructure
             Guid.Parse("d1615e0e-271f-4341-873c-faf77e3728cc"),
                 "Dummy Form", "Lorem ipsum dolor " +
                 "sit amet, consectetur adipiscing elit, sed do eiusmod tempor " +
-                "incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam," +
-                " quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." +
-                " Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu " +
-                "fugiat nulla pariatur. ")
+                                "fugiat nulla pariatur. ")
             .WithTextField(() => new TextFieldDefinition("FN", "First name", true).Min(2))
             .WithTextField(() => new TextFieldDefinition("LN", "Last name", true))
             .WithTextField(() => new TextFieldDefinition("MN", "Middle name", false).Max(3));
 
         private List<FormDefinition> formTemplatesTable = new List<FormDefinition>() {
-            DummyForm
+            DummyForm,
+            new FormDefinition("Validations demo form","Let's check all possible field types and validations")
+            .WithTextField(()=> new TextFieldDefinition("MAX","Max 5 required", true).Max(5))
+            .WithTextField(()=> new TextFieldDefinition("MIN","Min 5 required", true).Min(5))
+            .WithTextField(()=> new TextFieldDefinition("MIN_MAX","From 2 to 5 required", true).Min(2).Max(3))
+            .WithTextField(()=> new TextFieldDefinition("MIN_MAX_OPT","From 2 to 5 optional", false).Min(2).Max(3))
         };
         public async Task CreateFormDefinition(FormDefinition definition)
         {

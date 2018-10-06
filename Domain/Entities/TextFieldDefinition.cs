@@ -4,6 +4,7 @@ namespace Domain.Entities
 {
     public class TextFieldDefinition : FieldDefinition
     {
+        public override FieldType Type => FieldType.Text;
         public int? MinLength { get; protected set; }
         public int? MaxLength { get; protected set; }
         public TextFieldDefinition(
@@ -12,7 +13,6 @@ namespace Domain.Entities
             bool required)
             : base(fieldKey, name, required) { }
 
-        public override FieldType Type => FieldType.Text;
         public TextFieldDefinition Max(int max)
         {
             int? minValidValue = 0;

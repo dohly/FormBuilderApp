@@ -10,9 +10,9 @@ namespace Domain.Entities
 
         public string Name { get; }
         public string Description { get; }
+        public int ObjectsCount { get; private set; }
         public IEnumerable<FieldDefinition> FieldDefinitions => fields.Values;
         public FieldDefinition this[string fieldKey] => fields[fieldKey];
-        public Guid? NextVersionId { get; }
         public FormDefinition(string name, string description = null)
         {
             Id = Guid.NewGuid();
@@ -40,6 +40,11 @@ namespace Domain.Entities
                 throw new InvalidOperationException("Can't add duplicate field");
             }
             this.fields[def.FieldKey] = def;
+        }
+
+        internal void IncreaseObjectCount()
+        {
+            this.ObjectsCount++;
         }
     }
 }

@@ -36,6 +36,7 @@ namespace Domain.Entities
                             
                 this.values.Add(fieldDefition.FieldKey, value.ToString());
             }
+            metadata.IncreaseObjectCount();
         }
     }
 }

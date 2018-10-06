@@ -7,7 +7,7 @@ import {
   HttpErrorResponse
 } from '@angular/common/http';
 import { gettoken } from './shared.functions';
-import { Observable, of } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { catchError } from 'rxjs/operators';
 @Injectable()
@@ -25,7 +25,7 @@ export class BearerInterceptor implements HttpInterceptor {
       this.router.navigate(['notfound']);
       return of(err.message);
     }
-    return Observable.throw(err);
+    return throwError(err);
   }
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 

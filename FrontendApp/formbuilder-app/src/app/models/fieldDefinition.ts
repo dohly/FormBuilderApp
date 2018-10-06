@@ -1,5 +1,5 @@
 
-export type FieldType = 'Text' | 'DateTime';
+export type FieldType = 'Text' | 'Dropdown' | 'Date' | 'Radio' | 'Checkbox' | 'Number';
 export interface FieldDefinition extends Readonly<{
   formDefinitionId: string;
   required: boolean;

@@ -18,7 +18,7 @@ import { ApiService } from '../api.service';
 })
 export class FormsListComponent implements OnInit {
 
-  columnsToDisplay = ['name', 'fieldsCount'];
+  columnsToDisplay = ['name', 'fieldsCount', 'objectsCount'];
   expandedElement: FormDefinition;
   dataSource = this.api.getFormDefinitions();
   constructor(private api: ApiService) { }

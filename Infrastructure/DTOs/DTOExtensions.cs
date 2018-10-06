@@ -1,8 +1,4 @@
 ﻿using Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Infrastructure.DTOs
 {
@@ -14,17 +10,37 @@ namespace Infrastructure.DTOs
                 Id = def.Id,
                 Name = def.Name,
                 Description = def.Description,
-                Fields = def.FieldDefinitions.Select(fd => fd.ToDTO()).ToList()
+                ObjectsCount=def.ObjectsCount,
+                Fields = def.FieldDefinitions //.Select(fd => fd.ToDTO()).ToList()
             };
         public static FieldDefinitionDTO ToDTO(this FieldDefinition def)
-            => new FieldDefinitionDTO
+        {
+            FieldDefinitionDTO result=null;
+            switch (def)
             {
-                DisplayOrder = def.DisplayOrder,
-                FieldKey = def.FieldKey,
-                FieldName = def.FieldName,
-                FormDefinitionId = def.FormDefinitionId,
-                Required = def.Required,
-                Type = def.Type
-            };
-    }
+                case TextFieldDefinition td:
+                    result = new TextFieldDefinitionDTO(td);
+                    break;
+                //case FieldType.Dropdown:
+                //    throw new NotImplementedException();
+                //    break;
+                //case FieldType.Date:
+                //    throw new NotImplementedException();
+                //    break;
+                //case FieldType.Radio:
+                //    throw new NotImplementedException();
+                //    break;
+                //case FieldType.Checkbox:
+                //    throw new NotImplementedException();
+                //    break;
+                //case FieldType.Number:
+                //    throw new NotImplementedException();
+                //    break;
+                //default:
+                //    break;
+            }
+            
+            return result;
+        }
+}
 }

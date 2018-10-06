@@ -26,6 +26,9 @@ import { FillFormComponent } from './fill-form/fill-form.component';
 import { FieldWrapperComponent } from './field-wrapper/field-wrapper.component';
 import { OopsComponent } from './oops/oops.component';
 import { NotfoundComponent } from './notfound/notfound.component';
+import { MatListModule } from '@angular/material/list';
+import { ValidationErrorsComponent } from './validation-errors/validation-errors.component';
+import { EnteredValuesComponent } from './entered-values/entered-values.component';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -39,7 +42,9 @@ export function createTranslateLoader(http: HttpClient) {
     FillFormComponent,
     FieldWrapperComponent,
     OopsComponent,
-    NotfoundComponent
+    NotfoundComponent,
+    ValidationErrorsComponent,
+    EnteredValuesComponent
   ],
   imports: [
     NotifierModule.withConfig({
@@ -48,6 +53,7 @@ export function createTranslateLoader(http: HttpClient) {
         autoHide: 5000
       }
     }),
+    MatListModule,
     NgSelectModule,
     MatTableModule,
     BrowserModule,

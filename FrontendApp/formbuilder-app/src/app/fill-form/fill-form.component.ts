@@ -4,6 +4,7 @@ import { ApiService } from '../api.service';
 import { FormDefinition } from '../models/formDefinition';
 import { FormGroup } from '@angular/forms';
 import { toFormGroup } from 'src/app/shared.functions';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-fill-form',
@@ -14,9 +15,10 @@ export class FillFormComponent implements OnInit {
 
   public formDefinition: FormDefinition = {} as FormDefinition;
   public form: FormGroup = new FormGroup({});
-  constructor(private route: ActivatedRoute, private api: ApiService) { }
+  errors: string[] = [];
+  constructor(private route: ActivatedRoute, private location: Location, private api: ApiService) { }
 
-
+  public back = () => this.location.back();
   public ngOnInit() {
     const id = this.route.snapshot.params['id'];
     this.api.getFormDefinition(id).subscribe(x => {
@@ -25,7 +27,7 @@ export class FillFormComponent implements OnInit {
     });
   }
   public onSubmit() {
-    console.warn(this.form);
+    this.api.saveForm(this.formDefinition.id, this.form.value).subscribe(() => this.back());
   }
 
 }
