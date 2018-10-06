@@ -1,4 +1,5 @@
 ﻿using Domain.Entities;
+using Domain.Exceptions;
 using Domain.Gateways;
 using System;
 using System.Collections.Generic;
@@ -35,7 +36,11 @@ namespace Domain.UseCases
             {
                 throw new System.UnauthorizedAccessException();
             }
-            var form = await repository.GetFormDefinitionById(id);            
+            var form = await repository.GetFormDefinitionById(id);     
+            if (form == null)
+            {
+                throw new NotFoundException();
+            }
             return form;
         }
         public async Task CreateNewFormDefinition(User requester,FormDefinition form)

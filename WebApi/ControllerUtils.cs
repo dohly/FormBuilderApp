@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Domain.Exceptions;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 
@@ -20,6 +21,8 @@ namespace WebApi
                 {                    
                     case UnauthorizedAccessException ue:
                         return controller.Unauthorized();
+                    case NotFoundException nf:
+                        return controller.NotFound();
                     default:
                         return controller.StatusCode(500, ex.Message);
                 }

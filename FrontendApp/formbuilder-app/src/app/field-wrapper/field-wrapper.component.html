@@ -1,0 +1,12 @@
+<div [formGroup]="form">
+  <div [ngSwitch]="field.type">
+    <mat-form-field>
+      <input matInput *ngSwitchCase="'Text'" [placeholder]="field.fieldName" [formControlName]="field.fieldKey" [id]="field.fieldKey" [type]="field.type">
+    </mat-form-field>
+
+
+
+  </div>
+
+  <div class="errorMessage" *ngIf="!isValid">{{field.fieldName}} is required</div>
+</div>

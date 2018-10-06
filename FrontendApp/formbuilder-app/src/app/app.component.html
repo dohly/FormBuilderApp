@@ -1,8 +1,13 @@
 <mat-toolbar color="primary">
+  <a mat-icon-button class="homeLink" routerLink="/">
+    <mat-icon>home</mat-icon>
+  </a>
+
   <span translate>APP_NAME</span>
   <span class="example-fill-remaining-space"></span>
   <span class="language-selector">
-    <ng-select class="custom" bindLabel="name" bindValue="id" [clearable]="false" [searchable]="false" [items]="languages" [(ngModel)]="selectedLang">
+    <ng-select class="custom" bindLabel="name" bindValue="id" [clearable]="false" [searchable]="false" [items]="languages"
+      [(ngModel)]="selectedLang">
       <ng-template ng-label-tmp let-item="item">
         <img height="16" [src]="'assets/'+item.id+'.png'" />
         {{item.name}}

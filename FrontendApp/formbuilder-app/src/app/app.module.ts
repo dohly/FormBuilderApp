@@ -23,6 +23,9 @@ import { MatTableModule } from '@angular/material/table';
 import { BearerInterceptor } from './bearerInterceptor';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { FillFormComponent } from './fill-form/fill-form.component';
+import { FieldWrapperComponent } from './field-wrapper/field-wrapper.component';
+import { OopsComponent } from './oops/oops.component';
+import { NotfoundComponent } from './notfound/notfound.component';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -33,7 +36,10 @@ export function createTranslateLoader(http: HttpClient) {
     FormsListComponent,
     PageNotFoundComponent,
     AccessDeniedComponent,
-    FillFormComponent
+    FillFormComponent,
+    FieldWrapperComponent,
+    OopsComponent,
+    NotfoundComponent
   ],
   imports: [
     NotifierModule.withConfig({

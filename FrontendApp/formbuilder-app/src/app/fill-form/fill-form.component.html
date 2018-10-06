@@ -1,1 +1,11 @@
-{{formDefinition|json}}
+<mat-card>
+  <form (ngSubmit)="onSubmit()" [formGroup]="form">
+    <div *ngFor="let field of formDefinition.fields" class="form-row">
+      <app-field-wrapper [form]="form" [field]="field"></app-field-wrapper>
+    </div>
+  </form>
+
+  <mat-card-actions>
+    <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">Save</button>
+  </mat-card-actions>
+</mat-card>

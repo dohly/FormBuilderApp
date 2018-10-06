@@ -6,11 +6,15 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { FormsListComponent } from './forms-list/forms-list.component';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { FillFormComponent } from './fill-form/fill-form.component';
+import { OopsComponent } from './oops/oops.component';
+import { NotfoundComponent } from './notfound/notfound.component';
 const routes: Routes = [
   { path: '', component: FormsListComponent, canActivate: [AuthGuard] },
   { path: 'init', component: InitializerComponent },
-  { path: 'fill-form/:id', component: FillFormComponent },
+  { path: 'fill-form/:id', component: FillFormComponent, canActivate: [AuthGuard] },
   { path: 'access-denied', component: AccessDeniedComponent },
+  { path: 'oops', component: OopsComponent },
+  { path: 'notfound', component: NotfoundComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 @NgModule({

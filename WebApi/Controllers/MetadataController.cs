@@ -29,7 +29,7 @@ namespace WebApi.Controllers
         /// <response code="500">Server error</response> 
         [HttpGet]
         [Authorize]
-        [ProducesResponseType(typeof(IEnumerable<FormDefinitionDTO>),200)]
+        [ProducesResponseType(typeof(IEnumerable<FormDefinitionDTO>), 200)]
         public Task<IActionResult> Get()
             => this.SafeExecute(async () =>
          {
@@ -41,15 +41,20 @@ namespace WebApi.Controllers
         /// </summary>
         /// <response code="200">Form definition</response>
         /// <response code="401">Invalid token</response> 
+        /// <response code="404">Form definition not found</response> 
         /// <response code="500">Server error</response> 
         [HttpGet("{id}")]
         [Authorize]
         [ProducesResponseType(typeof(FormDefinitionDTO), 200)]
-        public Task<IActionResult> Get(Guid id)
+        public Task<IActionResult> Get(string id)
             => this.SafeExecute(async () =>
             {
-                var result = await useCases.GetFormDefinition(currentUser, id);
-                return Ok(result.ToDTO());
+                if (Guid.TryParse(id, out var guid))
+                {
+                    var result = await useCases.GetFormDefinition(currentUser, guid);
+                    return Ok(result.ToDTO());
+                }
+                return NotFound();
             });
     }
 }
