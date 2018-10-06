@@ -4,32 +4,32 @@ namespace Domain.Entities
 {
     public abstract class FieldDefinition : BaseEntity
     {
-        private Validator validator;
+        protected virtual Validator AdvancedValidator { get; } = (k, v) => null;
 
         public Guid FormDefinitionId { get; }
-        public bool Optional { get; protected set; }
+        public bool Required { get; protected set; }
         public string FieldKey { get; protected set; }
         public string FieldName { get; protected set; }
         public int DisplayOrder { get; protected set; }
-        public Validator IsValid =>
-            (serializedValue) =>
-                Optional && string.IsNullOrEmpty(serializedValue) ?
-                        true
-                        : validator == null ? true : validator(serializedValue);
+        public ValidationError Validate(string serializedValue)
+        {
+            var validation= Required ? 
+                Validators.Combine(Validators.RequiredText, AdvancedValidator)
+                :AdvancedValidator;
+            return validation(FieldKey, serializedValue);
+        }
         public abstract FieldType Type { get; }
-        internal FieldDefinition(Guid formDefinitionId,
+        protected FieldDefinition(Guid formDefinitionId,
             string key,
             string name,
             int displayOrder,
-            bool optional,
-            Validator validator,
+            bool required,
              Guid? id = null)
         {
             this.FormDefinitionId = formDefinitionId;
             FieldKey = key;
-            this.validator = validator;
             FieldName = name;
-            Optional = optional;
+            Required = required;
             DisplayOrder = displayOrder;
             Id = id ?? Guid.NewGuid();
         }

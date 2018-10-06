@@ -25,13 +25,13 @@ namespace Domain.Entities
         {
             this.Id = id;
         }
-        public FormDefinition WithTextField(string key, string displayName, bool optional, Validator validator = null)
+        public FormDefinition WithTextField(string key, string displayName, bool requred)
         {
             if (fields.Any(x => x.FieldKey == key || x.FieldName == displayName))
             {
                 throw new InvalidOperationException("Can't add duplicate field");
             }
-            this.fields.Add(new TextFieldDefinition(this.Id, key, displayName, this.fields.Count, optional, validator));
+            this.fields.Add(new TextFieldDefinition(this.Id, key, displayName, this.fields.Count, requred));
             return this;
         }
     }

@@ -20,8 +20,8 @@ namespace Tests
             new CreateNewFormDefinitionUseCase(repo, new DummyGuard(), caller);
 
         private FormDefinition sampleForm = new FormDefinition("User profile")
-            .WithTextField(displayName: "First name", key: "FN", optional: false)
-            .WithTextField(displayName: "Last name", key: "LN", optional: false);
+            .WithTextField(displayName: "First name", key: "FN", requred: true)
+            .WithTextField(displayName: "Last name", key: "LN", requred: true);
         [Fact]
         public void FormDefinitionNameCantBeEmpty() =>
             Assert.Throws<ArgumentException>(
@@ -30,15 +30,15 @@ namespace Tests
         public void FormDefinitionNameCantHaveDuplicatedKeys() =>
             Assert.Throws<InvalidOperationException>(
                 () => new FormDefinition("Some form")
-                .WithTextField(displayName: "First name", key: "FN", optional: false)
-                .WithTextField(displayName: "Last name", key: "FN", optional: false)
+                .WithTextField(displayName: "First name", key: "FN", requred: false)
+                .WithTextField(displayName: "Last name", key: "FN", requred: false)
                 );
         [Fact]
         public void FormDefinitionNameCantHaveDuplicatedNames() =>
             Assert.Throws<InvalidOperationException>(
                 () => new FormDefinition("Some form")
-                .WithTextField(displayName: "First name", key: "FN", optional: false)
-                .WithTextField(displayName: "First name", key: "LN", optional: false)
+                .WithTextField(displayName: "First name", key: "FN", requred: false)
+                .WithTextField(displayName: "First name", key: "LN", requred: false)
                 );
         [Fact]
         public async Task FormDefinitionCreatedSuccessfully()

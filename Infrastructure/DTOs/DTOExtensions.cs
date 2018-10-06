@@ -23,7 +23,7 @@ namespace Infrastructure.DTOs
                 FieldKey = def.FieldKey,
                 FieldName = def.FieldName,
                 FormDefinitionId = def.FormDefinitionId,
-                Optional = def.Optional,
+                Required = def.Required,
                 Type = def.Type
             };
     }

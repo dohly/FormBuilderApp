@@ -2,7 +2,7 @@
 export type FieldType = 'Text' | 'DateTime';
 export interface FieldDefinition extends Readonly<{
   formDefinitionId: string;
-  optional: boolean;
+  required: boolean;
   fieldKey: string;
   fieldName: string;
   displayOrder: number;

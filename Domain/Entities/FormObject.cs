@@ -1,4 +1,5 @@
 ﻿using Domain.Exceptions;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,7 +12,7 @@ namespace Domain.Entities
         public Guid FormDefinitionId { get; }
         public IReadOnlyDictionary<string, string> Values =>
             new ReadOnlyDictionary<string, string>(values);
-        public FormObject(FormDefinition metadata, IDictionary<string, string> values)
+        public FormObject(FormDefinition metadata, JObject values)
         {
             if (metadata == null)
             {
@@ -24,14 +25,16 @@ namespace Domain.Entities
             }
 
             this.FormDefinitionId = metadata.Id;
-            foreach (var valuePair in values)
+            foreach (var fieldDefition in metadata.FieldDefinitions)
             {
-                var fieldDefition = metadata[valuePair.Key];
-                // Let's ignore additional unknown values. Don't throw exceptions
-                if (fieldDefition == null) continue;
-                var validatedValue = fieldDefition.IsValid(valuePair.Value) ?
-                                    valuePair.Value : throw new ValidationException(valuePair.Key);
-                this.values.Add(valuePair.Key, validatedValue);
+                var specified=values.TryGetValue(fieldDefition.FieldKey, out var value);
+                var validationError = fieldDefition.Validate(value?.ToString());
+                if (validationError != null)
+                {
+                    throw new ValidationException(validationError.FieldKey);
+                }
+                            
+                this.values.Add(fieldDefition.FieldKey, value.ToString());
             }
         }
     }

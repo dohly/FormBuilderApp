@@ -10,13 +10,16 @@ namespace Domain.UseCases
     public class CreateNewFilledFormUseCase
     {
         private readonly ISecurityService guard;
+        private readonly IFormDataRepository repo;
         private readonly User caller;
 
         public CreateNewFilledFormUseCase(
             ISecurityService guard,
+            IFormDataRepository repo,
             User caller)
         {
             this.guard = guard ?? throw new ArgumentNullException(nameof(guard));
+            this.repo = repo ?? throw new ArgumentNullException(nameof(repo));
             this.caller = caller ?? throw new ArgumentNullException(nameof(caller));
         }
 
@@ -26,7 +29,7 @@ namespace Domain.UseCases
             {
                 throw new UnauthorizedAccessException();
             }
-            
+            await repo.SaveForm(newFormObject);
         }
     }
 }
