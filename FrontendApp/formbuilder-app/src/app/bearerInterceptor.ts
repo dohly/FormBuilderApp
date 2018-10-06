@@ -34,6 +34,11 @@ export class BearerInterceptor implements HttpInterceptor {
         Authorization: `Bearer ${gettoken()}`
       }
     });
+    if (request.headers.has('Skip-Prefix')) {
+      const headers = request.headers.delete('Skip-Prefix');
+      const directRequest = request.clone({ headers });
+      return next.handle(directRequest);
+    }
     return next.handle(request).pipe(catchError(x => this.handleError(x)));
   }
 }
