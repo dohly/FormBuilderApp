@@ -4,9 +4,11 @@ namespace Domain.Exceptions
 {
     public class ValidationException:Exception
     {
-        public ValidationException(string fieldKey)
+        public ValidationException(ValidationError error)
         {
-
+            Error = error;
         }
+
+        public ValidationError Error { get; }
     }
 }

@@ -26,6 +26,8 @@ namespace WebApi
                         return controller.Unauthorized();
                     case NotFoundException nf:
                         return controller.NotFound();
+                    case ValidationException ve:
+                        return controller.BadRequest(ve.Error);
                     default:
                         return controller.StatusCode(500, ex.Message);
                 }

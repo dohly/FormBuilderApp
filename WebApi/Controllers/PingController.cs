@@ -3,7 +3,6 @@
 namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
-    [Produces("appication/json")]
     [ApiController]
     public class PingController : ControllerBase
     {
@@ -12,6 +11,6 @@ namespace WebApi.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult Get() => Ok(new { });
+        public IActionResult Get() => Ok();
     }
 }

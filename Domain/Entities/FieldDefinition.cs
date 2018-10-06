@@ -1,17 +1,18 @@
 ﻿
+using Newtonsoft.Json.Linq;
 using System;
 namespace Domain.Entities
 {
     public abstract class FieldDefinition : BaseEntity
     {
-        protected virtual Validator AdvancedValidator { get; } = (k, v) => null;
+        protected abstract Validator AdvancedValidator { get; }
 
-        public Guid FormDefinitionId { get; }
+        public Guid FormDefinitionId { get; private set; }
         public bool Required { get; protected set; }
         public string FieldKey { get; protected set; }
         public string FieldName { get; protected set; }
         public int DisplayOrder { get; protected set; }
-        public ValidationError Validate(string serializedValue)
+        public ValidationError Validate(JToken serializedValue)
         {
             var validation= Required ? 
                 Validators.Combine(Validators.RequiredText, AdvancedValidator)
@@ -19,19 +20,22 @@ namespace Domain.Entities
             return validation(FieldKey, serializedValue);
         }
         public abstract FieldType Type { get; }
-        protected FieldDefinition(Guid formDefinitionId,
-            string key,
+        protected FieldDefinition(string key,
             string name,
-            int displayOrder,
-            bool required,
-             Guid? id = null)
+            bool required)
         {
-            this.FormDefinitionId = formDefinitionId;
             FieldKey = key;
             FieldName = name;
             Required = required;
-            DisplayOrder = displayOrder;
-            Id = id ?? Guid.NewGuid();
+            Id = Guid.NewGuid();
+        }
+        internal void SetFormDefinitionId(Guid id)
+        {
+            this.FormDefinitionId = id;
+        }
+        internal void SetDisplayOrder(int order)
+        {
+            this.DisplayOrder = order;
         }
     }
 }

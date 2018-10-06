@@ -28,10 +28,10 @@ namespace Domain.Entities
             foreach (var fieldDefition in metadata.FieldDefinitions)
             {
                 var specified=values.TryGetValue(fieldDefition.FieldKey, out var value);
-                var validationError = fieldDefition.Validate(value?.ToString());
+                var validationError = fieldDefition.Validate(value);
                 if (validationError != null)
                 {
-                    throw new ValidationException(validationError.FieldKey);
+                    throw new ValidationException(validationError);
                 }
                             
                 this.values.Add(fieldDefition.FieldKey, value.ToString());

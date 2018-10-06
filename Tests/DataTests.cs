@@ -20,9 +20,12 @@ namespace Tests
         private IFormDataRepository repo = new InMemoryFormDataRepository();
         private CreateNewFilledFormUseCase createFormData(User caller) =>
             new CreateNewFilledFormUseCase(new DummyGuard(), repo, caller);
-        private FormDefinition sampleForm = new FormDefinition("User profile")
-            .WithTextField(displayName: "First name", key: "FN", requred: true)
-            .WithTextField(displayName: "Last name", key: "LN", requred: true);
+        private FormDefinition sampleForm =
+            new FormDefinition("User profile")
+            .WithTextField(() => new TextFieldDefinition(name: "First name", fieldKey: "FN", required: true))
+            .WithTextField(() => new TextFieldDefinition(name: "Last name", fieldKey: "LN", required: true));
+
+
 
         [Fact]
         public void CannotCreateFormObjectIfRequiredValueIsEmpty()
@@ -32,6 +35,28 @@ namespace Tests
         public void CannotCreateFormObjectIfNoValuesReceived()
             => Assert.Throws<ValidationException>(
                 () => new FormObject(sampleForm, fromJson("{}")));
+        [Fact]
+        public void CannotCreateFormObjectIfSomeValueTooLong()
+        {
+            var testForm = new FormDefinition("test")
+                    .WithTextField(() =>
+                    new TextFieldDefinition("MAX", "Max length test", false)
+                    .Max(5));
+            Assert.Throws<ValidationException>(
+               () => new FormObject(testForm
+                   , fromJson("{'MAX':'1234567'}")));
+        }
+        [Fact]
+        public void CannotCreateFormObjectIfSomeValueTooShort()
+        {
+            var testForm = new FormDefinition("test")
+                    .WithTextField(() =>
+                    new TextFieldDefinition("MIN", "Min length test", false)
+                    .Min(5));
+            Assert.Throws<ValidationException>(
+               () => new FormObject(testForm
+                   , fromJson("{'MIN':'123'}")));
+        }
         [Fact]
         public void CanCreateFormObjectIfValuesAreValid()
             => Assert.NotNull(new FormObject(sampleForm,

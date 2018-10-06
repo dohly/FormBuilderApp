@@ -1,10 +1,8 @@
-using Domain;
 using Domain.Entities;
 using Domain.Gateways;
 using Domain.UseCases;
 using Infrastructure;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
@@ -20,8 +18,8 @@ namespace Tests
             new CreateNewFormDefinitionUseCase(repo, new DummyGuard(), caller);
 
         private FormDefinition sampleForm = new FormDefinition("User profile")
-            .WithTextField(displayName: "First name", key: "FN", requred: true)
-            .WithTextField(displayName: "Last name", key: "LN", requred: true);
+            .WithTextField(() => new TextFieldDefinition(name: "First name", fieldKey: "FN", required: true))
+            .WithTextField(() => new TextFieldDefinition(name: "Last name", fieldKey: "LN", required: true));
         [Fact]
         public void FormDefinitionNameCantBeEmpty() =>
             Assert.Throws<ArgumentException>(
@@ -30,16 +28,14 @@ namespace Tests
         public void FormDefinitionNameCantHaveDuplicatedKeys() =>
             Assert.Throws<InvalidOperationException>(
                 () => new FormDefinition("Some form")
-                .WithTextField(displayName: "First name", key: "FN", requred: false)
-                .WithTextField(displayName: "Last name", key: "FN", requred: false)
-                );
+                .WithTextField(() => new TextFieldDefinition(name: "First name", fieldKey: "FN", required: true))
+                .WithTextField(() => new TextFieldDefinition(name: "Last name", fieldKey: "FN", required: true)));
         [Fact]
         public void FormDefinitionNameCantHaveDuplicatedNames() =>
             Assert.Throws<InvalidOperationException>(
                 () => new FormDefinition("Some form")
-                .WithTextField(displayName: "First name", key: "FN", requred: false)
-                .WithTextField(displayName: "First name", key: "LN", requred: false)
-                );
+                .WithTextField(() => new TextFieldDefinition(name: "First name", fieldKey: "FN", required: true))
+                .WithTextField(() => new TextFieldDefinition(name: "First name", fieldKey: "LN", required: true)));
         [Fact]
         public async Task FormDefinitionCreatedSuccessfully()
         {

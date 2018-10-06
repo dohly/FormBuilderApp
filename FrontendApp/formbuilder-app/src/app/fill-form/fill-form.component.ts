@@ -25,7 +25,7 @@ export class FillFormComponent implements OnInit {
     });
   }
   public onSubmit() {
-
+    console.warn(this.form);
   }
 
 }

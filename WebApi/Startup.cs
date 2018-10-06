@@ -69,6 +69,7 @@ namespace WebApi
                     });
             });
             services.AddSingleton<Domain.Gateways.IMetadataRepository, Infrastructure.InMemoryMetadataRepository>();
+            services.AddSingleton<Domain.Gateways.IFormDataRepository, Infrastructure.InMemoryFormDataRepository>();
             services.AddScoped<Domain.Gateways.ISecurityService, Infrastructure.DummyGuard>();
         }
 

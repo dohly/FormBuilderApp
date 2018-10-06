@@ -6,12 +6,11 @@ namespace Domain.Entities
     {
         public int? MinLength { get; protected set; }
         public int? MaxLength { get; protected set; }
-        internal TextFieldDefinition(Guid formDefinitionId,
+        public TextFieldDefinition(
             string fieldKey,
             string name,
-            int displayOrder,
             bool required)
-            : base(formDefinitionId, fieldKey, name, displayOrder, required) { }
+            : base(fieldKey, name, required) { }
 
         public override FieldType Type => FieldType.Text;
         public TextFieldDefinition Max(int max)
@@ -28,11 +27,12 @@ namespace Domain.Entities
             if (min < 0) throw new ArgumentOutOfRangeException(nameof(min), "should be greater than 0");
             this.MinLength = min;
             return this;
-        }
+        }       
+
         protected override Validator AdvancedValidator =>
             Validators.Combine(
                     Validators.MinLength(MinLength),
-                    Validators.MinLength(MaxLength)
+                    Validators.MaxLength(MaxLength)
                     );
     }
 }

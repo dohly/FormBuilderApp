@@ -6,13 +6,12 @@ namespace Domain.Entities
 {
     public class FormDefinition : BaseEntity
     {
-        private List<FieldDefinition> fields = new List<FieldDefinition>();
+        private Dictionary<string, FieldDefinition> fields = new Dictionary<string, FieldDefinition>();
 
         public string Name { get; }
         public string Description { get; }
-        public IEnumerable<FieldDefinition> FieldDefinitions => fields;
-        public FieldDefinition this[string fieldKey] =>
-            this.FieldDefinitions.FirstOrDefault(x => x.FieldKey == fieldKey);
+        public IEnumerable<FieldDefinition> FieldDefinitions => fields.Values;
+        public FieldDefinition this[string fieldKey] => fields[fieldKey];
         public Guid? NextVersionId { get; }
         public FormDefinition(string name, string description = null)
         {
@@ -25,14 +24,22 @@ namespace Domain.Entities
         {
             this.Id = id;
         }
-        public FormDefinition WithTextField(string key, string displayName, bool requred)
+        public FormDefinition WithTextField(Func<TextFieldDefinition> builder)
         {
-            if (fields.Any(x => x.FieldKey == key || x.FieldName == displayName))
+            var textDef = builder();
+            textDef.SetFormDefinitionId(this.Id);
+            textDef.SetDisplayOrder(this.fields.Count);
+            this.AddNewField(textDef);
+            return this;
+        }
+        private void AddNewField(FieldDefinition def)
+        {
+            if (fields.ContainsKey(def.FieldKey)
+                || FieldDefinitions.Any(x => x.FieldName == def.FieldName))
             {
                 throw new InvalidOperationException("Can't add duplicate field");
             }
-            this.fields.Add(new TextFieldDefinition(this.Id, key, displayName, this.fields.Count, requred));
-            return this;
+            this.fields[def.FieldKey] = def;
         }
     }
 }
