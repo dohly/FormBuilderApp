@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Domain.UseCases
 {
-    public class CreateNewFilledFormUseCase
+    public class CreateNewFilledForm
     {
         private readonly ISecurityService guard;
         private readonly IFormDataRepository repo;
         private readonly User caller;
 
-        public CreateNewFilledFormUseCase(
+        public CreateNewFilledForm(
             ISecurityService guard,
             IFormDataRepository repo,
             User caller)

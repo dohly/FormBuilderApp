@@ -12,10 +12,10 @@ namespace Tests
     public class MetadataTests
     {
         private IMetadataRepository repo = new InMemoryMetadataRepository();
-        private GetFormDefinitionsUseCase getFormDefinitions(User caller) =>
-            new GetFormDefinitionsUseCase(repo, new DummyGuard(), caller);
-        private CreateNewFormDefinitionUseCase createNewFormDefinition(User caller) =>
-            new CreateNewFormDefinitionUseCase(repo, new DummyGuard(), caller);
+        private GetFormDefinitions getFormDefinitions(User caller) =>
+            new GetFormDefinitions(repo, new DummyGuard(), caller);
+        private CreateNewFormDefinition createNewFormDefinition(User caller) =>
+            new CreateNewFormDefinition(repo, new DummyGuard(), caller);
 
         private FormDefinition sampleForm = new FormDefinition("User profile")
             .WithTextField(() => new TextFieldDefinition(name: "First name", fieldKey: "FN", required: true))

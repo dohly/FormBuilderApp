@@ -39,8 +39,8 @@ namespace WebApi.Controllers
             )
             => this.SafeExecute(async (currentUser) =>
             {
-                var formDefinition = await new GetSpecificFormDefinitionUseCase(metadataRepo, Guard, currentUser).Execute(formId);
-                await new CreateNewFilledFormUseCase(Guard, formRepo, currentUser).Execute(
+                var formDefinition = await new GetSpecificFormDefinition(metadataRepo, Guard, currentUser).Execute(formId);
+                await new CreateNewFilledForm(Guard, formRepo, currentUser).Execute(
                     new Domain.Entities.FormObject(formDefinition, obj)
                     );
                 return StatusCode(201);

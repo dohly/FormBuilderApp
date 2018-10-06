@@ -33,7 +33,7 @@ namespace WebApi.Controllers
         public Task<IActionResult> Get()
             => this.SafeExecute(async (currentUser) =>
          {
-             var result = await new GetFormDefinitionsUseCase(repo, Guard, currentUser).Execute();
+             var result = await new GetFormDefinitions(repo, Guard, currentUser).Execute();
              return Ok(result.Select(x => x.ToDTO()));
          });
         /// <summary>
@@ -51,7 +51,7 @@ namespace WebApi.Controllers
             {
                 if (Guid.TryParse(id, out var guid))
                 {
-                    var result = await new GetSpecificFormDefinitionUseCase(repo,Guard,currentUser).Execute(guid);
+                    var result = await new GetSpecificFormDefinition(repo,Guard,currentUser).Execute(guid);
                     return Ok(result.ToDTO());
                 }
                 return NotFound();

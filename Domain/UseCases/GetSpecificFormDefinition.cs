@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace Domain.UseCases
 {
-    public class GetSpecificFormDefinitionUseCase
+    public class GetSpecificFormDefinition
     {
         private readonly IMetadataRepository repository;
         private readonly ISecurityService guard;
         private readonly User requester;
 
-        public GetSpecificFormDefinitionUseCase(IMetadataRepository repository, 
+        public GetSpecificFormDefinition(IMetadataRepository repository, 
             ISecurityService guard,
             User requester)
         {

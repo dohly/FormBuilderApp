@@ -1,16 +1,20 @@
 ﻿using Domain.Entities;
+using Domain.Exceptions;
 using Domain.Gateways;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Domain.UseCases
 {
-    public class CreateNewFormDefinitionUseCase
+    public class GetFormDefinitions
     {
         private readonly IMetadataRepository repository;
         private readonly ISecurityService guard;
         private readonly User requester;
 
-        public CreateNewFormDefinitionUseCase(IMetadataRepository repository, 
+        public GetFormDefinitions(IMetadataRepository repository, 
             ISecurityService guard,
             User requester)
         {
@@ -18,16 +22,15 @@ namespace Domain.UseCases
             this.guard = guard;
             this.requester = requester;
         }
-      
-        public async Task Execute(FormDefinition form)
+        public async Task<IEnumerable<FormDefinition>> Execute()
         {
             //There is no such requirement in the task.
-            //I just want to show difference between repository and use-case.
-            if (!await guard.CanCreateNewForms(requester))
+            //I just want to show difference between 'repository' and 'use-case'.
+            if (!await guard.CanRetrieveFormDefinitions(requester))
             {
                 throw new System.UnauthorizedAccessException();
-            }            
-            await repository.CreateFormDefinition(form);
+            }
+            return await repository.GetFormDefinitions();
         }        
     }
 }

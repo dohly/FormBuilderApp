@@ -18,8 +18,8 @@ namespace Tests
     {
         private JObject fromJson(string json) => JsonConvert.DeserializeObject<JObject>(json);
         private IFormDataRepository repo = new InMemoryFormDataRepository();
-        private CreateNewFilledFormUseCase createFormData(User caller) =>
-            new CreateNewFilledFormUseCase(new DummyGuard(), repo, caller);
+        private CreateNewFilledForm createFormData(User caller) =>
+            new CreateNewFilledForm(new DummyGuard(), repo, caller);
         private FormDefinition sampleForm =
             new FormDefinition("User profile")
             .WithTextField(() => new TextFieldDefinition(name: "First name", fieldKey: "FN", required: true))
