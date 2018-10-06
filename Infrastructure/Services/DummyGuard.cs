@@ -32,21 +32,25 @@ namespace Infrastructure
                 }
             };
 
-        public Task<bool> CanCreateNewFormObjects(User requester)
-            => Task.FromResult(!(requester is FiredEmployee));
+        public Task<bool> CanCreateNewFormObjects(User user)
+            => Task.FromResult(!(user is FiredEmployee));
 
-        public Task<bool> CanCreateNewForms(User requester)
-            => Task.FromResult(requester is Admin);
+        public Task<bool> CanCreateNewForms(User user)
+            => Task.FromResult(user is Admin);
 
         public Task<bool> CanRetrieveFormDefinitions(User user)
             => Task.FromResult(!(user is FiredEmployee));
+
+        public Task<bool> CanRetrieveFormObjects(Guid formDefinitionId, User user) =>
+            // always true, but we can set specific restrictions
+            Task.FromResult(true);
 
         public Task<bool> CanRetrieveSpecificFormDefinition(User user, Guid formDefinitionId)
             => Task.FromResult(!(user is FiredEmployee));
 
         public Task<User> GetUserByCredentials(string login, string password)
-        {            
-            return Task.FromResult(TestUsers.FirstOrDefault(x => x.Login == login 
+        {
+            return Task.FromResult(TestUsers.FirstOrDefault(x => x.Login == login
             && x.Password == password));//no hash for now
         }
 

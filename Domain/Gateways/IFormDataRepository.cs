@@ -1,5 +1,6 @@
 ﻿using Domain.Entities;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Domain.Gateways
@@ -8,5 +9,6 @@ namespace Domain.Gateways
     {
         Task SaveForm(FormObject filledForm);
         Task<FormObject> GetFormDataById(Guid id);
+        Task<IEnumerable<FormObject>> GetObjectsByFormId(Guid formDefinitionId);
     }
 }

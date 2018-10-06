@@ -15,7 +15,11 @@ namespace Domain
             => string.IsNullOrWhiteSpace(v?.Value<string>()) ? new ValidationError(k, "is empty") : null;
         public static Validator MinLength(int? minlength)
             => minlength.HasValue
-                ? (k, v) => (v?.Value<string>()?.Length < minlength) ? new ValidationError(k, "too short") : null
+                ? (k, v) => {
+                    var s = v?.Value<string>();
+                    if (string.IsNullOrEmpty(s)) return null;
+                    return (s.Length < minlength) ? new ValidationError(k, "too short") : null;
+                }
                 : Empty;
         public static Validator MaxLength(int? maxlength)
             => maxlength.HasValue

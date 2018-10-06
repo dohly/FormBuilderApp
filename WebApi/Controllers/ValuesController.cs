@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Domain;
 using Domain.Gateways;
 using Domain.UseCases;
+using Infrastructure.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -44,6 +45,23 @@ namespace WebApi.Controllers
                     new Domain.Entities.FormObject(formDefinition, obj)
                     );
                 return StatusCode(201);
+            });
+
+        [HttpGet("{formId}")]
+        [Authorize]
+        [ProducesResponseType(typeof(ObjectListDTO), 200)]
+        public Task<IActionResult> Get(Guid formId,
+            [FromServices]IMetadataRepository metadataRepo,
+            [FromServices]IFormDataRepository formRepo)
+            => this.SafeExecute(async (currentUser) =>
+            {
+                var formDefinition = await new GetSpecificFormDefinition(metadataRepo, Guard, currentUser).Execute(formId);
+                var objects = await new GetFormObjests(Guard, formRepo, currentUser).Execute(formId);
+                return Ok(new ObjectListDTO
+                {
+                    FormDefinition = formDefinition.ToDTO(),
+                    Objects = objects.Select(x=>JObject.FromObject(x.Values)).ToList()
+                });
             });
     }
 }

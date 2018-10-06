@@ -1,3 +1,11 @@
-<p>
-  entered-values works!
-</p>
+<table *ngIf="!loading" mat-table [dataSource]="dataSource" matSort multiTemplateDataRows class="objects-table">
+  <ng-container matColumnDef="{{column}}" *ngFor="let column of columnsToDisplay">
+    <th mat-header-cell mat-sort-header *matHeaderCellDef> {{columnNameByKey(column)}} </th>
+    <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+  <tr mat-row *matRowDef="let element; columns: columnsToDisplay;" class="form-definition-row">
+  </tr>
+
+</table>

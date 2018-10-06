@@ -23,7 +23,8 @@ namespace Tests
         private FormDefinition sampleForm =
             new FormDefinition("User profile")
             .WithTextField(() => new TextFieldDefinition(name: "First name", fieldKey: "FN", required: true))
-            .WithTextField(() => new TextFieldDefinition(name: "Last name", fieldKey: "LN", required: true));
+            .WithTextField(() => new TextFieldDefinition(name: "Last name", fieldKey: "LN", required: true))
+            .WithTextField(() => new TextFieldDefinition("MIN_MAX_OPT", "From 2 to 5 optional", false).Min(2).Max(3));
 
 
 
@@ -64,7 +65,7 @@ namespace Tests
         [Fact]
         public async Task FullSuccessExample()
         {
-            string json = "{ 'FN':'first name' ,'LN':'last name' }";
+            string json = "{ 'FN':'first name' ,'LN':'last name', 'MIN_MAX_OPT':'' }";
             var obj = new FormObject(sampleForm, fromJson(json));
             await createFormData(new Employee()).Execute(obj);
             var data = await repo.GetFormDataById(obj.Id);

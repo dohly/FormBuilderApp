@@ -10,9 +10,10 @@ namespace Domain.Gateways
     {
         Task<bool> CanRetrieveSpecificFormDefinition(User user, Guid formDefinitionId);
         Task<bool> CanRetrieveFormDefinitions(User user);
-        Task<bool> CanCreateNewForms(User requester);
-        Task<bool> CanCreateNewFormObjects(User requester);
+        Task<bool> CanCreateNewForms(User user);
+        Task<bool> CanCreateNewFormObjects(User user);
         Task<User> GetUserByCredentials(string login, string password);
         Task<User> GetUserByName(string name);
+        Task<bool> CanRetrieveFormObjects(Guid formDefinitionId, User user);
     }
 }

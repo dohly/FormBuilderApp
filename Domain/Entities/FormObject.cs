@@ -8,10 +8,10 @@ namespace Domain.Entities
 {
     public class FormObject : BaseEntity
     {
-        private Dictionary<string, string> values = new Dictionary<string, string>();
+        private Dictionary<string, object> values = new Dictionary<string, object>();
         public Guid FormDefinitionId { get; }
-        public IReadOnlyDictionary<string, string> Values =>
-            new ReadOnlyDictionary<string, string>(values);
+        public IReadOnlyDictionary<string, object> Values =>
+            new ReadOnlyDictionary<string, object>(values);
         public FormObject(FormDefinition metadata, JObject values)
         {
             if (metadata == null)
@@ -34,7 +34,7 @@ namespace Domain.Entities
                     throw new ValidationException(validationError);
                 }
                             
-                this.values.Add(fieldDefition.FieldKey, value.ToString());
+                this.values.Add(fieldDefition.FieldKey, value);
             }
             metadata.IncreaseObjectCount();
         }

@@ -14,6 +14,9 @@ namespace Infrastructure
         public Task<FormObject> GetFormDataById(Guid id)
             => Task.FromResult(store.FirstOrDefault(x => x.Id == id));
 
+        public Task<IEnumerable<FormObject>> GetObjectsByFormId(Guid formDefinitionId)
+            => Task.FromResult(store.Where(x => x.FormDefinitionId == formDefinitionId));
+
         public async Task SaveForm(FormObject filledForm)
         {
             store.Add(filledForm);

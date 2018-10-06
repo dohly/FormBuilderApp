@@ -5,6 +5,7 @@ import {
 } from 'rxjs/operators';
 import { User } from './models/user';
 import { FormDefinition } from './models/formDefinition';
+import { ObjectList } from './models/objectList';
 
 @Injectable({
   providedIn: 'root'
@@ -32,4 +33,6 @@ export class ApiService {
   private url = (relative) => this.apiHost + relative;
   public getFormDefinitions = () => this.http.get<FormDefinition[]>(this.url('/api/metadata'));
   public getFormDefinition = (id) => this.http.get<FormDefinition>(this.url('/api/metadata/' + id));
+  public getObjects = (id) => this.http.get<ObjectList>(this.url('/api/values/' + id));
+
 }
