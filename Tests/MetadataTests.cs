@@ -1,5 +1,6 @@
 using Domain;
 using Domain.Entities;
+using Domain.Gateways;
 using Domain.UseCases;
 using Infrastructure;
 using System;
@@ -12,11 +13,12 @@ namespace Tests
 {
     public class MetadataTests
     {
-        private MetadataUseCases metadataUseCases =
-            new MetadataUseCases(new InMemoryMetadataRepository(), new DummyGuard());
-        private User admin = new User() { Name = "Admin" };
-        private User firedEmployee = new User() { Name = "Fired employee" };
-        private User regularUser = new User() { Name = "Employee" };
+        private IMetadataRepository repo = new InMemoryMetadataRepository();
+        private GetFormDefinitionsUseCase getFormDefinitions(User caller) =>
+            new GetFormDefinitionsUseCase(repo, new DummyGuard(), caller);
+        private CreateNewFormDefinitionUseCase createNewFormDefinition(User caller) =>
+            new CreateNewFormDefinitionUseCase(repo, new DummyGuard(), caller);
+
         private FormDefinition sampleForm = new FormDefinition("User profile")
             .WithTextField(displayName: "First name", key: "FN", optional: false)
             .WithTextField(displayName: "Last name", key: "LN", optional: false);
@@ -41,8 +43,9 @@ namespace Tests
         [Fact]
         public async Task FormDefinitionCreatedSuccessfully()
         {
-            await this.metadataUseCases.CreateNewFormDefinition(admin, sampleForm);
-            var formFromStorage = await metadataUseCases.GetFormDefinition(admin, sampleForm.Id);
+            var currentUser = new Admin();
+            await this.createNewFormDefinition(currentUser).Execute(sampleForm);
+            var formFromStorage = await repo.GetFormDefinitionById(sampleForm.Id);
             Assert.Equal(sampleForm.Id, formFromStorage.Id);
             Assert.Equal(sampleForm.Name, formFromStorage.Name);
         }
@@ -52,22 +55,22 @@ namespace Tests
         public async Task OnlyAdminCanCreateForm()
         {
             await Assert.ThrowsAsync<UnauthorizedAccessException>(() =>
-                metadataUseCases.CreateNewFormDefinition(regularUser, sampleForm));
+                createNewFormDefinition(new Employee()).Execute(sampleForm));
             await Assert.ThrowsAsync<UnauthorizedAccessException>(() =>
-                metadataUseCases.CreateNewFormDefinition(firedEmployee, sampleForm));
+                createNewFormDefinition(new FiredEmployee()).Execute(sampleForm));
         }
 
         //There is no such requirement in the task.
         //I want to show difference between repository and use-case.
         [Fact]
         public Task FiredEmployeeCantAccessToFormList()
-            =>Assert.ThrowsAsync<UnauthorizedAccessException>(() =>
-                metadataUseCases.GetFormDefinitions(firedEmployee));
+            => Assert.ThrowsAsync<UnauthorizedAccessException>(() =>
+                 getFormDefinitions(new FiredEmployee()).Execute());
         [Fact]
-        public async Task AdminAndRegularUserCanAccessToFormList()
-        { 
-            var r1=await  metadataUseCases.GetFormDefinitions(admin);
-            var r2=await metadataUseCases.GetFormDefinitions(regularUser);
+        public async Task AdminAndEmployeeCanAccessToFormList()
+        {
+            var r1 = await getFormDefinitions(new Admin()).Execute();
+            var r2 = await getFormDefinitions(new Employee()).Execute();
             Assert.Equal(r1.Count(), r2.Count());
         }
 

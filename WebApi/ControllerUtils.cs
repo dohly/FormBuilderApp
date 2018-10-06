@@ -1,18 +1,21 @@
-﻿using Domain.Exceptions;
+﻿using Domain.Entities;
+using Domain.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
+using WebApi.Controllers;
 
 namespace WebApi
 {
     public static class ControllerUtils
     {
-        public static async Task<IActionResult> SafeExecute<TController>(this TController controller, Func<Task<IActionResult>> action)
-            where TController : ControllerBase
+        public static async Task<IActionResult> SafeExecute<TController>(this TController controller, Func<User,Task<IActionResult>> action)
+            where TController : WebApiController
         {
             try
             {
-                return await action();
+                var currentUser = await controller.Guard.GetUserByName(controller.User.Identity.Name);
+                return await action(currentUser);
             }
             catch (Exception ex)
             {

@@ -13,13 +13,13 @@ namespace WebApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MetadataController : ControllerBase
+    public class MetadataController : WebApiController
     {
-        private MetadataUseCases useCases;
-        private User currentUser => new User() { Name = User.Identity.Name };// simplified for demo
-        public MetadataController(IMetadataRepository repository, ISecurityService guard)
+        private readonly IMetadataRepository repo;
+
+        public MetadataController(ISecurityService guard, IMetadataRepository repo) : base(guard)
         {
-            useCases = new MetadataUseCases(repository, guard);
+            this.repo = repo;
         }
         /// <summary>
         /// Get form definitions
@@ -31,9 +31,9 @@ namespace WebApi.Controllers
         [Authorize]
         [ProducesResponseType(typeof(IEnumerable<FormDefinitionDTO>), 200)]
         public Task<IActionResult> Get()
-            => this.SafeExecute(async () =>
+            => this.SafeExecute(async (currentUser) =>
          {
-             var result = await useCases.GetFormDefinitions(currentUser);
+             var result = await new GetFormDefinitionsUseCase(repo, Guard, currentUser).Execute();
              return Ok(result.Select(x => x.ToDTO()));
          });
         /// <summary>
@@ -47,11 +47,11 @@ namespace WebApi.Controllers
         [Authorize]
         [ProducesResponseType(typeof(FormDefinitionDTO), 200)]
         public Task<IActionResult> Get(string id)
-            => this.SafeExecute(async () =>
+            => this.SafeExecute(async (currentUser) =>
             {
                 if (Guid.TryParse(id, out var guid))
                 {
-                    var result = await useCases.GetFormDefinition(currentUser, guid);
+                    var result = await new GetSpecificFormDefinitionUseCase(repo,Guard,currentUser).Execute(guid);
                     return Ok(result.ToDTO());
                 }
                 return NotFound();
