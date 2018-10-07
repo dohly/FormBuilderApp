@@ -1,5 +1,4 @@
-﻿using Domain;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Gateways;
 using System;
 using System.Collections.Generic;
@@ -43,20 +42,20 @@ namespace Infrastructure
             .AddField(()=> new NumberFieldDefinition("RN", "Req_Number>4",true).GreaterThan(4))
             .AddField(()=> new NumberFieldDefinition("ON", "Op_Number<6",false).LessThan(4))
             .AddField(()=>new DateFieldDefinition("DATE","Date",true))
-   
+
     };
-    public async Task CreateFormDefinition(FormDefinition definition)
-    {
-        formTemplatesTable.Add(definition);
+        public async Task CreateFormDefinition(FormDefinition definition)
+        {
+            formTemplatesTable.Add(definition);
+        }
+
+        public Task<IEnumerable<FieldDefinition>> GetFieldDefinitionsByFormId(Guid formDefinitionId)
+            => Task.FromResult(this.formTemplatesTable.Single(x => x.Id == formDefinitionId).FieldDefinitions);
+
+        public Task<FormDefinition> GetFormDefinitionById(Guid id) =>
+            Task.FromResult(formTemplatesTable.FirstOrDefault(x => x.Id == id));
+
+        public Task<IEnumerable<FormDefinition>> GetFormDefinitions() => Task.FromResult(this.formTemplatesTable.AsEnumerable());
+
     }
-
-    public Task<IEnumerable<FieldDefinition>> GetFieldDefinitionsByFormId(Guid formDefinitionId)
-        => Task.FromResult(this.formTemplatesTable.Single(x => x.Id == formDefinitionId).FieldDefinitions);
-
-    public Task<FormDefinition> GetFormDefinitionById(Guid id) =>
-        Task.FromResult(formTemplatesTable.FirstOrDefault(x => x.Id == id));
-
-    public Task<IEnumerable<FormDefinition>> GetFormDefinitions() => Task.FromResult(this.formTemplatesTable.AsEnumerable());
-
-}
 }

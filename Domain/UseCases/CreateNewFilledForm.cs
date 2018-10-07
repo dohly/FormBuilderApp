@@ -1,8 +1,6 @@
 ﻿using Domain.Entities;
 using Domain.Gateways;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Domain.UseCases
