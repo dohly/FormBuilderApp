@@ -5,6 +5,9 @@
   </ng-container>
   <ng-container matColumnDef="disclaimer">
     <td mat-footer-cell *matFooterCellDef colspan="2">
+        <a mat-icon-button color="primary" routerLink="/">
+          <mat-icon>keyboard_arrow_left</mat-icon>
+        </a>
         <a mat-icon-button color="primary" [routerLink]="['/new', metadata.id]">
           <mat-icon>playlist_add</mat-icon>
         </a>
