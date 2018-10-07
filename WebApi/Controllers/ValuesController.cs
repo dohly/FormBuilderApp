@@ -1,13 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Domain;
 using Domain.Gateways;
 using Domain.UseCases;
 using Infrastructure.DTOs;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json.Linq;
 
@@ -17,7 +16,7 @@ namespace WebApi.Controllers
     [ApiController]
     public class ValuesController : WebApiController
     {
-        public ValuesController(ISecurityService guard) : base(guard)
+        public ValuesController(ISecurityService guard, ILogger log) : base(guard,log)
         {
         }
 
@@ -46,7 +45,14 @@ namespace WebApi.Controllers
                     );
                 return StatusCode(201);
             });
-
+        /// <summary>
+        /// Get objects
+        /// </summary>
+        /// <param name="formId">Form definition id</param>
+        /// <response code="200">Objects</response>
+        /// <response code="401">Invalid token</response> 
+        /// <response code="400">Invalid formId</response> 
+        /// <response code="500">Server error</response> 
         [HttpGet("{formId}")]
         [Authorize]
         [ProducesResponseType(typeof(ObjectListDTO), 200)]

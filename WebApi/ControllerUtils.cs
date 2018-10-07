@@ -19,7 +19,7 @@ namespace WebApi
             }
             catch (Exception ex)
             {
-                // TODO add logging
+                controller.Log.Error(ex);                
                 switch (ex)
                 {                    
                     case UnauthorizedAccessException ue:

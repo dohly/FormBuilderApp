@@ -6,6 +6,7 @@ using Domain.Entities;
 using Domain.Gateways;
 using Domain.UseCases;
 using Infrastructure.DTOs;
+using Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,7 +18,7 @@ namespace WebApi.Controllers
     {
         private readonly IMetadataRepository repo;
 
-        public MetadataController(ISecurityService guard, IMetadataRepository repo) : base(guard)
+        public MetadataController(ISecurityService guard, IMetadataRepository repo, ILogger log) : base(guard, log)
         {
             this.repo = repo;
         }

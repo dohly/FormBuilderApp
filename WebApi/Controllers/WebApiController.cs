@@ -6,9 +6,11 @@ namespace WebApi.Controllers
     public abstract class WebApiController:ControllerBase
     {
         public ISecurityService Guard { get; }
-        public WebApiController(ISecurityService guard)
+        public Infrastructure.Services.ILogger Log { get; }
+        public WebApiController(ISecurityService guard, Infrastructure.Services.ILogger log)
         {
             Guard = guard;
+            Log = log;
         }        
         
     }

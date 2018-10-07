@@ -71,6 +71,7 @@ namespace WebApi
             services.AddSingleton<Domain.Gateways.IMetadataRepository, Infrastructure.InMemoryMetadataRepository>();
             services.AddSingleton<Domain.Gateways.IFormDataRepository, Infrastructure.InMemoryFormDataRepository>();
             services.AddScoped<Domain.Gateways.ISecurityService, Infrastructure.DummyGuard>();
+            services.AddScoped<Infrastructure.Services.ILogger, Infrastructure.Services.DummyLogger>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
