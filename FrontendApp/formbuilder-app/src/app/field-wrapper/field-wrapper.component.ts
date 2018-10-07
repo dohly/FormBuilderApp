@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FieldValue } from '../models/fieldValue';
+import { FieldValue, OptionsFieldDefinition } from '../models/fieldValue';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -11,5 +11,6 @@ export class FieldWrapperComponent {
   @Input() public field: FieldValue<any>;
   @Input() public form: FormGroup;
   public get isValid() { return this.form.controls[this.field.fieldKey].valid; }
+  public getOptions = (fd: OptionsFieldDefinition) => fd.avalableOptions;
 
 }

@@ -3,27 +3,6 @@ using Newtonsoft.Json.Linq;
 
 namespace Domain.Entities
 {
-    public class CheckboxFieldDefinition : FieldDefinition
-    {
-        public override FieldType Type => FieldType.Checkbox;
-
-        public CheckboxFieldDefinition(
-            string fieldKey,
-            string name,
-            bool required)
-            : base(fieldKey, name, required) { }
-
-        public override ValidationError Validate(JToken serializedValue)
-        {
-            var notBoolean=Validators.ShouldBeType(JTokenType.Boolean)(FieldKey,serializedValue);
-            if (notBoolean != null) return notBoolean;
-            if (Required&&!serializedValue.Value<bool>())
-            {
-                return new ValidationError(FieldKey, "Required");
-            }
-            return null;
-        }
-    }
     public class TextFieldDefinition : FieldDefinition
     {
         public override FieldType Type => FieldType.Text;

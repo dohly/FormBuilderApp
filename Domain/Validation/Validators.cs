@@ -26,8 +26,10 @@ namespace Domain
                 ? (k, v) => v?.Value<string>()?.Length > maxlength ? new ValidationError(k, "too long") : null
                 : Empty;
         public static Validator Combine(params Validator[] validators) => (k, v)
-            => validators.Select(x => x(k, v)).FirstOrDefault(err => err != null);
+            => validators.Where(x=>x!=null).Select(x => x(k, v)).FirstOrDefault(err => err != null);
         public static Validator ShouldBeType(JTokenType type) =>
             (k, v) =>v.Type == type ? null : new ValidationError(k, "wrong type");
+        public static Validator ShouldBeIn(IEnumerable<string> possibleValues) =>
+            (k, v) => possibleValues.Any(x=>x==v.Value<string>()) ? null : new ValidationError(k, "wrong option");
     }
 }

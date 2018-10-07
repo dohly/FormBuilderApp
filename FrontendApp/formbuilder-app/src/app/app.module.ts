@@ -30,6 +30,7 @@ import { MatListModule } from '@angular/material/list';
 import { ValidationErrorsComponent } from './validation-errors/validation-errors.component';
 import { EnteredValuesComponent } from './entered-values/entered-values.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -54,6 +55,7 @@ export function createTranslateLoader(http: HttpClient) {
         autoHide: 5000
       }
     }),
+    MatRadioModule,
     MatCheckboxModule,
     MatListModule,
     NgSelectModule,

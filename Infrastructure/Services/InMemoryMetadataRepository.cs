@@ -26,10 +26,15 @@ namespace Infrastructure
             new FormDefinition("Validations demo form","Let's check all possible field types and validations")
             .AddField(()=> new TextFieldDefinition("MAX","Max 5 required", true).Max(5))
             .AddField(()=> new TextFieldDefinition("MIN","Min 5 required", true).Min(5))
-            .AddField(()=> new TextFieldDefinition("MIN_MAX","From 2 to 5 required", true).Min(2).Max(3))
+            .AddField(()=> new TextFieldDefinition("MIN_MAX","From 2 to 5 required", true).Min(2).Max(5))
             .AddField(()=> new TextFieldDefinition("MIN_MAX_OPT","From 2 to 5 optional", false).Min(2).Max(3))
             .AddField(()=>new CheckboxFieldDefinition("BOOL", "Required bool", true))
             .AddField(()=>new CheckboxFieldDefinition("BOOL_OP", "Optional bool", false))
+            .AddField(()=>new RadioButtonFieldDefinition("RB","Radio",
+                new Dictionary<string,string> {
+                    { "id1","Choice1"},
+                    {"id2","Choice2" }
+                }))
             //.WithCheckBox(()=>new C,
 
             

@@ -18,9 +18,9 @@ const textControl = (field: TextFieldDefinition) => {
   return new FormControl(field.value || '', validators);
 };
 const checkboxControl = (field: FieldValue<boolean>) =>
-  field.required ?
-    new FormControl(field.value, Validators.requiredTrue)
-    : new FormControl(field.value);
+  new FormControl(field.value, field.required ? Validators.requiredTrue : undefined);
+const radioControl = (field: FieldValue<string>) =>
+  new FormControl(field.value, field.required ? Validators.required : undefined);
 const notimplemented = (def) => null as FormControl;
 const controlmap: { [type in FieldType]: (def) => FormControl } = {
   Text: textControl,
@@ -28,7 +28,7 @@ const controlmap: { [type in FieldType]: (def) => FormControl } = {
   Date: notimplemented,
   Checkbox: checkboxControl,
   Number: notimplemented,
-  Radio: notimplemented
+  Radio: radioControl
 };
 export function toFormGroup(fields: FieldValue<any>[]) {
   const group: any = {};

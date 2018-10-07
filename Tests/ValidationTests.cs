@@ -42,5 +42,11 @@ namespace Tests
             Assert.NotNull(Validators.ShouldBeType(JTokenType.Boolean)("", 123));
             Assert.NotNull(Validators.ShouldBeType(JTokenType.Boolean)("", "true"));
         }
+        [Fact]
+        public void ShouldBeInWorks()
+        {
+            Assert.NotNull(Validators.ShouldBeIn(new[] {"a","b" })("", "c"));
+            Assert.Null(Validators.ShouldBeIn(new[] { "a", "b" })("", "a"));
+        }
     }
 }

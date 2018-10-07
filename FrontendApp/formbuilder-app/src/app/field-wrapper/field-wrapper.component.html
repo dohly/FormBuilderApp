@@ -12,5 +12,10 @@
     <mat-checkbox *ngSwitchCase="'Checkbox'" [formControlName]="field.fieldKey" [id]="field.fieldKey">
         {{field.fieldName}}
       </mat-checkbox>
+      <mat-radio-group *ngSwitchCase="'Radio'" [formControlName]="field.fieldKey" [id]="field.fieldKey">
+          <mat-radio-button class="example-radio-button" *ngFor="let opt of getOptions(field)" [value]="opt.value">
+            {{opt.text}}
+          </mat-radio-button>
+        </mat-radio-group>
   </div>
 </div>
