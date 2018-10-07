@@ -1,0 +1,24 @@
+<div [formGroup]="form">
+  <div [ngSwitch]="field.type">
+
+    <mat-checkbox *ngSwitchCase="'Checkbox'" [formControlName]="field.fieldKey" [id]="field.fieldKey">
+        {{field.fieldName}}
+      </mat-checkbox>
+      <mat-radio-group *ngSwitchCase="'Radio'" [formControlName]="field.fieldKey" [id]="field.fieldKey">
+          <mat-radio-button class="example-radio-button" *ngFor="let opt of getOptions(field)" [value]="opt.value">
+            {{opt.text}}
+          </mat-radio-button>
+        </mat-radio-group>
+        <ng-select class="select" *ngSwitchCase="'Dropdown'" [clearable]="!field.required" bindValue="value" bindLabel="text" [items]="getOptions(field)" [formControlName]="field.fieldKey" [id]="field.fieldKey">
+        </ng-select>
+        <mat-form-field *ngSwitchDefault>
+            <input [type]="getInputType(field)" matInput  [placeholder]="field.fieldName" [formControlName]="field.fieldKey"
+              [id]="field.fieldKey">
+
+            <mat-error *ngIf="form.get(field.fieldKey).status==='INVALID'">
+              <app-validation-errors [errors]="form.get(field.fieldKey).errors"></app-validation-errors>
+            </mat-error>
+
+          </mat-form-field>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<mat-card>
+  <mat-horizontal-stepper [linear]="true" #stepper>
+    <mat-step [stepControl]="apiAddessForm">
+      <mat-card>
+        <form [formGroup]="apiAddessForm">
+          <ng-template matStepLabel>{{'SET_API_ADDRESS'|translate}}</ng-template>
+          <mat-form-field>
+            <input matInput placeholder="{{'API_ADDRESS'|translate}}" #url formControlName="apiUrl" required>
+          </mat-form-field>
+          <div>
+            <button mat-button [disabled]="connecting" (click)="connect(url.value)">{{(connecting?'CONNECTING':'CONNECT')|translate}}</button>
+          </div>
+        </form>
+      </mat-card>
+    </mat-step>
+    <mat-step [stepControl]="loginForm">
+      <form [formGroup]="loginForm">
+        <ng-template matStepLabel>{{'LOGIN'|translate}}</ng-template>
+        <mat-form-field>
+          <input matInput placeholder="{{'USERNAME'|translate}}" formControlName="login" required>
+        </mat-form-field>
+        <mat-form-field>
+          <input matInput type="password" placeholder="{{'PASSWORD'|translate}}" formControlName="password" required>
+        </mat-form-field>
+        <ng-select appendTo="body" class="test-user-selector" placeholder="{{'SELECT_TEST_USER'|translate}}" [items]="testUsers|async"
+          bindLabel="name" (change)="selectTestUser($event)">
+
+        </ng-select>
+        <div>
+          <button mat-button matStepperPrevious>{{'BACK'|translate}}</button>
+          <button mat-button (click)="login()">{{'LOGIN'|translate}}</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>{{'DONE'|translate}}</ng-template>
+      {{'READY_TO_WORK'|translate}}
+      <div>
+        <button mat-button matStepperPrevious>{{'BACK'|translate}}</button>
+        <a routerLink="/" mat-button (click)="stepper.reset()">{{'START'|translate}}</a>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</mat-card>

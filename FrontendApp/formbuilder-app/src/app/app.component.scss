@@ -1,0 +1,19 @@
+.example-fill-remaining-space {
+    /* This fills the remaining space, by using flexbox.
+     Every toolbar row uses a flexbox row layout. */
+    flex: 1 1 auto;
+}
+
+.language-selector {
+    width: 130px;
+    margin-right: 10px;
+}
+
+.ng-select.custom ::ng-deep .ng-select-container {
+    color: white;
+}
+
+.homeLink {
+    color: white;
+    text-decoration: none;
+}

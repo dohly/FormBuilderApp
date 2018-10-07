@@ -1,0 +1,32 @@
+{
+  "APP_NAME": "Form Builder APP",
+  "ACCESS_DENIED": "Access denied",
+  "SET_API_ADDRESS": "Setup API (backend) address",
+  "API_ADDRESS": "API URL",
+  "CONNECT": "Connect & next",
+  "CONNECTING": "Connecting...",
+  "CONNECT_ERROR": "Couldn't connect. You've specified wrong address or backend is not running.",
+  "LOGIN": "Log in",
+  "BACK": "Back",
+  "USERNAME": "Username",
+  "PASSWORD": "Password",
+  "SELECT_TEST_USER": "Use test credentials",
+  "INVALID_CREDENTIALS": "Invalid credentials",
+  "DONE": "Done",
+  "READY_TO_WORK": "Congratulations! Now you can start work",
+  "START": "Get started",
+  "OOPS": "Oops...something went wrong",
+  "NOT_FOUND": "404 - page not found",
+  "FORMS-LIST": {
+    "NAME": "Form name",
+    "FIELDS_COUNT": "Fields count",
+    "OBJECTS_COUNT": "Objects count"
+  },
+  "VALIDATION":{
+    "REQUIRED":"Required field",
+    "MAX_LENGTH":"Max length is {{requiredLength}}",
+    "MIN_LENGTH":"Min length is {{requiredLength}}",
+    "MAX":"Maximum is {{max}}",
+    "MIN":"Minimum is {{min}}"
+  }
+}

@@ -1,0 +1,13 @@
+<mat-card>
+  <mat-card-content fxLayoutAlign="center">
+    <form (ngSubmit)="onSubmit()" id="dynamicForm" [formGroup]="form">
+      <div *ngFor="let field of formDefinition.fields" class="form-row">
+        <app-field-wrapper [form]="form" [field]="field"></app-field-wrapper>
+      </div>
+    </form>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button (click)="back()">{{'BACK'|translate}}</button>
+    <button mat-raised-button color="primary" form="dynamicForm" type="submit" [disabled]="!form.valid">Save</button>
+  </mat-card-actions>
+</mat-card>
