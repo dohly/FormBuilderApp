@@ -17,12 +17,16 @@ const textControl = (field: TextFieldDefinition) => {
   }
   return new FormControl(field.value || '', validators);
 };
+const checkboxControl = (field: FieldValue<boolean>) =>
+  field.required ?
+    new FormControl(field.value, Validators.requiredTrue)
+    : new FormControl(field.value);
 const notimplemented = (def) => null as FormControl;
 const controlmap: { [type in FieldType]: (def) => FormControl } = {
-  Text: (def) => textControl(def),
+  Text: textControl,
   Dropdown: notimplemented,
   Date: notimplemented,
-  Checkbox: notimplemented,
+  Checkbox: checkboxControl,
   Number: notimplemented,
   Radio: notimplemented
 };

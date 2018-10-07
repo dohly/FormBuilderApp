@@ -16,17 +16,23 @@ namespace Infrastructure
                 "Dummy Form", "Lorem ipsum dolor " +
                 "sit amet, consectetur adipiscing elit, sed do eiusmod tempor " +
                                 "fugiat nulla pariatur. ")
-            .WithTextField(() => new TextFieldDefinition("FN", "First name", true).Min(2))
-            .WithTextField(() => new TextFieldDefinition("LN", "Last name", true))
-            .WithTextField(() => new TextFieldDefinition("MN", "Middle name", false).Max(3));
+            .AddField(() => new TextFieldDefinition("FN", "First name", true).Min(2))
+            .AddField(() => new TextFieldDefinition("LN", "Last name", true))
+            .AddField(() => new TextFieldDefinition("MN", "Middle name", false).Max(3));
 
         private List<FormDefinition> formTemplatesTable = new List<FormDefinition>() {
             DummyForm,
+
             new FormDefinition("Validations demo form","Let's check all possible field types and validations")
-            .WithTextField(()=> new TextFieldDefinition("MAX","Max 5 required", true).Max(5))
-            .WithTextField(()=> new TextFieldDefinition("MIN","Min 5 required", true).Min(5))
-            .WithTextField(()=> new TextFieldDefinition("MIN_MAX","From 2 to 5 required", true).Min(2).Max(3))
-            .WithTextField(()=> new TextFieldDefinition("MIN_MAX_OPT","From 2 to 5 optional", false).Min(2).Max(3))
+            .AddField(()=> new TextFieldDefinition("MAX","Max 5 required", true).Max(5))
+            .AddField(()=> new TextFieldDefinition("MIN","Min 5 required", true).Min(5))
+            .AddField(()=> new TextFieldDefinition("MIN_MAX","From 2 to 5 required", true).Min(2).Max(3))
+            .AddField(()=> new TextFieldDefinition("MIN_MAX_OPT","From 2 to 5 optional", false).Min(2).Max(3))
+            .AddField(()=>new CheckboxFieldDefinition("BOOL", "Required bool", true))
+            .AddField(()=>new CheckboxFieldDefinition("BOOL_OP", "Optional bool", false))
+            //.WithCheckBox(()=>new C,
+
+            
         };
         public async Task CreateFormDefinition(FormDefinition definition)
         {

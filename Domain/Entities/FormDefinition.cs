@@ -24,7 +24,7 @@ namespace Domain.Entities
         {
             this.Id = id;
         }
-        public FormDefinition WithTextField(Func<TextFieldDefinition> builder)
+        public FormDefinition AddField<T>(Func<T> builder) where T:FieldDefinition
         {
             var textDef = builder();
             textDef.SetFormDefinitionId(this.Id);

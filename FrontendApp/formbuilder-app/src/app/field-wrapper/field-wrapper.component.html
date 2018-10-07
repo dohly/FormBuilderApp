@@ -1,12 +1,16 @@
 <div [formGroup]="form">
   <div [ngSwitch]="field.type">
-    <mat-form-field>
-      <input matInput *ngSwitchCase="'Text'" [placeholder]="field.fieldName" [formControlName]="field.fieldKey" [id]="field.fieldKey"
-        [type]="field.type">
+    <mat-form-field *ngSwitchCase="'Text'">
+      <input type="text" matInput  [placeholder]="field.fieldName" [formControlName]="field.fieldKey"
+        [id]="field.fieldKey">
+
       <mat-error *ngIf="form.get(field.fieldKey).status==='INVALID'">
         <app-validation-errors [errors]="form.get(field.fieldKey).errors"></app-validation-errors>
       </mat-error>
 
     </mat-form-field>
+    <mat-checkbox *ngSwitchCase="'Checkbox'" [formControlName]="field.fieldKey" [id]="field.fieldKey">
+        {{field.fieldName}}
+      </mat-checkbox>
   </div>
 </div>

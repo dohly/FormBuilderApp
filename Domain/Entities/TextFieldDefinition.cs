@@ -1,7 +1,29 @@
 ﻿using System;
+using Newtonsoft.Json.Linq;
 
 namespace Domain.Entities
 {
+    public class CheckboxFieldDefinition : FieldDefinition
+    {
+        public override FieldType Type => FieldType.Checkbox;
+
+        public CheckboxFieldDefinition(
+            string fieldKey,
+            string name,
+            bool required)
+            : base(fieldKey, name, required) { }
+
+        public override ValidationError Validate(JToken serializedValue)
+        {
+            var notBoolean=Validators.ShouldBeType(JTokenType.Boolean)(FieldKey,serializedValue);
+            if (notBoolean != null) return notBoolean;
+            if (Required&&!serializedValue.Value<bool>())
+            {
+                return new ValidationError(FieldKey, "Required");
+            }
+            return null;
+        }
+    }
     public class TextFieldDefinition : FieldDefinition
     {
         public override FieldType Type => FieldType.Text;
@@ -27,9 +49,17 @@ namespace Domain.Entities
             if (min < 0) throw new ArgumentOutOfRangeException(nameof(min), "should be greater than 0");
             this.MinLength = min;
             return this;
-        }       
+        }
 
-        protected override Validator AdvancedValidator =>
+        public override ValidationError Validate(JToken serializedValue)
+        {
+            var validation = Required ?
+               Validators.Combine(Validators.RequiredText, AdvancedValidator)
+               : AdvancedValidator;
+            return validation(FieldKey, serializedValue);
+        }
+
+        private Validator AdvancedValidator =>
             Validators.Combine(
                     Validators.MinLength(MinLength),
                     Validators.MaxLength(MaxLength)

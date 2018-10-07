@@ -27,5 +27,7 @@ namespace Domain
                 : Empty;
         public static Validator Combine(params Validator[] validators) => (k, v)
             => validators.Select(x => x(k, v)).FirstOrDefault(err => err != null);
+        public static Validator ShouldBeType(JTokenType type) =>
+            (k, v) =>v.Type == type ? null : new ValidationError(k, "wrong type");
     }
 }

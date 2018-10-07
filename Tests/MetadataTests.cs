@@ -18,8 +18,8 @@ namespace Tests
             new CreateNewFormDefinition(repo, new DummyGuard(), caller);
 
         private FormDefinition sampleForm = new FormDefinition("User profile")
-            .WithTextField(() => new TextFieldDefinition(name: "First name", fieldKey: "FN", required: true))
-            .WithTextField(() => new TextFieldDefinition(name: "Last name", fieldKey: "LN", required: true));
+            .AddField(() => new TextFieldDefinition(name: "First name", fieldKey: "FN", required: true))
+            .AddField(() => new TextFieldDefinition(name: "Last name", fieldKey: "LN", required: true));
         [Fact]
         public void FormDefinitionNameCantBeEmpty() =>
             Assert.Throws<ArgumentException>(
@@ -28,14 +28,14 @@ namespace Tests
         public void FormDefinitionNameCantHaveDuplicatedKeys() =>
             Assert.Throws<InvalidOperationException>(
                 () => new FormDefinition("Some form")
-                .WithTextField(() => new TextFieldDefinition(name: "First name", fieldKey: "FN", required: true))
-                .WithTextField(() => new TextFieldDefinition(name: "Last name", fieldKey: "FN", required: true)));
+                .AddField(() => new TextFieldDefinition(name: "First name", fieldKey: "FN", required: true))
+                .AddField(() => new TextFieldDefinition(name: "Last name", fieldKey: "FN", required: true)));
         [Fact]
         public void FormDefinitionNameCantHaveDuplicatedNames() =>
             Assert.Throws<InvalidOperationException>(
                 () => new FormDefinition("Some form")
-                .WithTextField(() => new TextFieldDefinition(name: "First name", fieldKey: "FN", required: true))
-                .WithTextField(() => new TextFieldDefinition(name: "First name", fieldKey: "LN", required: true)));
+                .AddField(() => new TextFieldDefinition(name: "First name", fieldKey: "FN", required: true))
+                .AddField(() => new TextFieldDefinition(name: "First name", fieldKey: "LN", required: true)));
         [Fact]
         public async Task FormDefinitionCreatedSuccessfully()
         {

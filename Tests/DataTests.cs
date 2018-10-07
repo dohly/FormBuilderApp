@@ -22,9 +22,9 @@ namespace Tests
             new CreateNewFilledForm(new DummyGuard(), repo, caller);
         private FormDefinition sampleForm =
             new FormDefinition("User profile")
-            .WithTextField(() => new TextFieldDefinition(name: "First name", fieldKey: "FN", required: true))
-            .WithTextField(() => new TextFieldDefinition(name: "Last name", fieldKey: "LN", required: true))
-            .WithTextField(() => new TextFieldDefinition("MIN_MAX_OPT", "From 2 to 5 optional", false).Min(2).Max(3));
+            .AddField(() => new TextFieldDefinition(name: "First name", fieldKey: "FN", required: true))
+            .AddField(() => new TextFieldDefinition(name: "Last name", fieldKey: "LN", required: true))
+            .AddField(() => new TextFieldDefinition("MIN_MAX_OPT", "From 2 to 5 optional", false).Min(2).Max(3));
 
 
 
@@ -40,7 +40,7 @@ namespace Tests
         public void CannotCreateFormObjectIfSomeValueTooLong()
         {
             var testForm = new FormDefinition("test")
-                    .WithTextField(() =>
+                    .AddField(() =>
                     new TextFieldDefinition("MAX", "Max length test", false)
                     .Max(5));
             Assert.Throws<ValidationException>(
@@ -51,7 +51,7 @@ namespace Tests
         public void CannotCreateFormObjectIfSomeValueTooShort()
         {
             var testForm = new FormDefinition("test")
-                    .WithTextField(() =>
+                    .AddField(() =>
                     new TextFieldDefinition("MIN", "Min length test", false)
                     .Min(5));
             Assert.Throws<ValidationException>(

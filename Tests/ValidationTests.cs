@@ -1,4 +1,5 @@
 ﻿using Domain;
+using Newtonsoft.Json.Linq;
 using Xunit;
 
 namespace Tests
@@ -32,6 +33,14 @@ namespace Tests
             Assert.Null(validator(fieldKey,"12345"));
             Assert.NotNull(validator(fieldKey,"123456"));
         }
-
+        [Fact]
+        public void CheckTypeWorks()
+        {
+            Assert.Null(Validators.ShouldBeType(JTokenType.Boolean)("", true));
+            Assert.Null(Validators.ShouldBeType(JTokenType.String)("", "blabla"));
+            Assert.Null(Validators.ShouldBeType(JTokenType.Integer)("", 123));            
+            Assert.NotNull(Validators.ShouldBeType(JTokenType.Boolean)("", 123));
+            Assert.NotNull(Validators.ShouldBeType(JTokenType.Boolean)("", "true"));
+        }
     }
 }
