@@ -35,22 +35,26 @@ namespace Infrastructure
                     { "id1","Choice1"},
                     {"id2","Choice2" }
                 }))
-            //.WithCheckBox(()=>new C,
-
-            
-        };
-        public async Task CreateFormDefinition(FormDefinition definition)
-        {
-            formTemplatesTable.Add(definition);
-        }
-
-        public Task<IEnumerable<FieldDefinition>> GetFieldDefinitionsByFormId(Guid formDefinitionId)
-            => Task.FromResult(this.formTemplatesTable.Single(x => x.Id == formDefinitionId).FieldDefinitions);
-
-        public Task<FormDefinition> GetFormDefinitionById(Guid id) =>
-            Task.FromResult(formTemplatesTable.FirstOrDefault(x => x.Id == id));
-
-        public Task<IEnumerable<FormDefinition>> GetFormDefinitions() => Task.FromResult(this.formTemplatesTable.AsEnumerable());
-
+             .AddField(()=>new DropdownFieldDefinition("DDR","Mandatory Dropdown",
+                new Dictionary<string,string> {
+                    { "id1","option 1"},
+                    {"id2","option 2" }
+                }, true))
+        //.WithCheckBox(()=>new C,
+   
+    };
+    public async Task CreateFormDefinition(FormDefinition definition)
+    {
+        formTemplatesTable.Add(definition);
     }
+
+    public Task<IEnumerable<FieldDefinition>> GetFieldDefinitionsByFormId(Guid formDefinitionId)
+        => Task.FromResult(this.formTemplatesTable.Single(x => x.Id == formDefinitionId).FieldDefinitions);
+
+    public Task<FormDefinition> GetFormDefinitionById(Guid id) =>
+        Task.FromResult(formTemplatesTable.FirstOrDefault(x => x.Id == id));
+
+    public Task<IEnumerable<FormDefinition>> GetFormDefinitions() => Task.FromResult(this.formTemplatesTable.AsEnumerable());
+
+}
 }

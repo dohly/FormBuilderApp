@@ -1,5 +1,5 @@
 <mat-card>
-  <mat-card-content>
+  <mat-card-content fxLayoutAlign="center">
     <form (ngSubmit)="onSubmit()" id="dynamicForm" [formGroup]="form">
       <div *ngFor="let field of formDefinition.fields" class="form-row">
         <app-field-wrapper [form]="form" [field]="field"></app-field-wrapper>

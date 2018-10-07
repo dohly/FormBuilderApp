@@ -19,16 +19,16 @@ const textControl = (field: TextFieldDefinition) => {
 };
 const checkboxControl = (field: FieldValue<boolean>) =>
   new FormControl(field.value, field.required ? Validators.requiredTrue : undefined);
-const radioControl = (field: FieldValue<string>) =>
+const singleChoiceControl = (field: FieldValue<string>) =>
   new FormControl(field.value, field.required ? Validators.required : undefined);
 const notimplemented = (def) => null as FormControl;
 const controlmap: { [type in FieldType]: (def) => FormControl } = {
   Text: textControl,
-  Dropdown: notimplemented,
+  Dropdown: singleChoiceControl,
   Date: notimplemented,
   Checkbox: checkboxControl,
   Number: notimplemented,
-  Radio: radioControl
+  Radio: singleChoiceControl
 };
 export function toFormGroup(fields: FieldValue<any>[]) {
   const group: any = {};
