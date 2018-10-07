@@ -6,9 +6,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { InitializerComponent } from './initializer/initializer.component';
-import { FormsListComponent } from './forms-list/forms-list.component';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -20,17 +17,19 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NotifierModule } from 'angular-notifier';
 import { MatTableModule } from '@angular/material/table';
-import { BearerInterceptor } from './bearerInterceptor';
-import { AccessDeniedComponent } from './access-denied/access-denied.component';
-import { FillFormComponent } from './fill-form/fill-form.component';
-import { FieldWrapperComponent } from './field-wrapper/field-wrapper.component';
-import { OopsComponent } from './oops/oops.component';
-import { NotfoundComponent } from './notfound/notfound.component';
-import { MatListModule } from '@angular/material/list';
-import { ValidationErrorsComponent } from './validation-errors/validation-errors.component';
-import { EnteredValuesComponent } from './entered-values/entered-values.component';
+import { BearerInterceptor } from './services/bearerInterceptor';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatListModule } from '@angular/material/list';
 import { MatRadioModule } from '@angular/material/radio';
+import { AccessDeniedComponent } from './components/error_pages/access-denied/access-denied.component';
+import { FillFormComponent } from './components/fill-form/fill-form.component';
+import { FieldWrapperComponent } from './components/field-wrapper/field-wrapper.component';
+import { OopsComponent } from './components/error_pages/oops/oops.component';
+import { NotfoundComponent } from './components/error_pages/notfound/notfound.component';
+import { EnteredValuesComponent } from './components/entered-values/entered-values.component';
+import { ValidationErrorsComponent } from './components/validation-errors/validation-errors.component';
+import { InitializerComponent } from './components/initializer/initializer.component';
+import { FormsListComponent } from './components/forms-list/forms-list.component';
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -39,7 +38,6 @@ export function createTranslateLoader(http: HttpClient) {
     AppComponent,
     InitializerComponent,
     FormsListComponent,
-    PageNotFoundComponent,
     AccessDeniedComponent,
     FillFormComponent,
     FieldWrapperComponent,

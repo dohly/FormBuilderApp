@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ApiService } from '../api.service';
-import { FormDefinition } from '../models/formDefinition';
 import { FormGroup } from '@angular/forms';
-import { toFormGroup } from 'src/app/shared.functions';
+import { toFormGroup } from '../../services/shared.functions';
 import { Location } from '@angular/common';
+import { FormDefinition } from '../../models/formDefinition';
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-fill-form',

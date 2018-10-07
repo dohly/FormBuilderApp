@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { FormDefinition } from '../models/formDefinition';
-import { ApiService } from '../api.service';
-
+import { FormDefinition } from 'src/app/models/formDefinition';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-forms-list',

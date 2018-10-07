@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../api.service';
 import { FormDefinition } from 'src/app/models/formDefinition';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs/internal/observable/of';
+import { ApiService } from 'src/app/services/api.service';
 
 @Component({
   selector: 'app-entered-values',

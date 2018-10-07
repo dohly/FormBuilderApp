@@ -1,7 +1,9 @@
 import { Component, Input } from '@angular/core';
-import { FieldValue, OptionsFieldDefinition } from '../models/fieldValue';
+
 import { FormGroup } from '@angular/forms';
-import { FieldDefinition, FieldType } from '../models/fieldDefinition';
+import { FieldValue, OptionsFieldDefinition } from '../../models/fieldValue';
+import { FieldType, FieldDefinition } from '../../models/fieldDefinition';
+
 
 @Component({
   selector: 'app-field-wrapper',

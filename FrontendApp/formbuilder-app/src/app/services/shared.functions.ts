@@ -1,7 +1,7 @@
 
 import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { FieldValue, TextFieldDefinition, NumberFieldDefinition } from './models/fieldValue';
-import { FieldType } from './models/fieldDefinition';
+import { FieldValue, TextFieldDefinition, NumberFieldDefinition } from '../models/fieldValue';
+import { FieldType } from '../models/fieldDefinition';
 export const gettoken = () => localStorage.getItem('token');
 
 const textControl = (field: TextFieldDefinition) => {

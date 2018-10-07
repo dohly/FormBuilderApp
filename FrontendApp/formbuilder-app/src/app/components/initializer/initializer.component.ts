@@ -1,12 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { ApiService } from '../api.service';
 import { NotifierService } from 'angular-notifier';
 import { TranslateService } from '@ngx-translate/core';
 import { MatStepper } from '@angular/material/stepper';
-import { AuthService } from '../auth.service';
-import { User } from '../models/user';
+import { User } from 'src/app/models/user';
+import { ApiService } from 'src/app/services/api.service';
+import { AuthService } from 'src/app/services/auth.service';
+
 @Component({
   selector: 'app-initializer',
   templateUrl: './initializer.component.html',

@@ -3,9 +3,9 @@ import { HttpClient } from '@angular/common/http';
 import {
   tap
 } from 'rxjs/operators';
-import { User } from './models/user';
-import { FormDefinition } from './models/formDefinition';
-import { ObjectList } from './models/objectList';
+import { User } from '../models/user';
+import { FormDefinition } from '../models/formDefinition';
+import { ObjectList } from '../models/objectList';
 
 @Injectable({
   providedIn: 'root'
