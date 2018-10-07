@@ -49,6 +49,7 @@ namespace WebApi
                     Encoding.UTF8.GetBytes(secret))
                     };
                 });
+            
             services.AddCors();
             services.AddMvc()
                 .AddJsonOptions(options =>
@@ -77,7 +78,7 @@ namespace WebApi
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-
+            app.UseStaticFiles();
             app.UseCors(options =>
                 options
                 .AllowAnyOrigin()
