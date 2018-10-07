@@ -42,7 +42,7 @@ namespace Infrastructure
                 }, true))
             .AddField(()=> new NumberFieldDefinition("RN", "Req_Number>4",true).GreaterThan(4))
             .AddField(()=> new NumberFieldDefinition("ON", "Op_Number<6",false).LessThan(4))
-        //.WithCheckBox(()=>new C,
+            .AddField(()=>new DateFieldDefinition("DATE","Date",true))
    
     };
     public async Task CreateFormDefinition(FormDefinition definition)

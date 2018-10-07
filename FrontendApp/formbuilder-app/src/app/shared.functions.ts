@@ -34,11 +34,13 @@ const checkboxControl = (field: FieldValue<boolean>) =>
   new FormControl(field.value, field.required ? Validators.requiredTrue : undefined);
 const singleChoiceControl = (field: FieldValue<string>) =>
   new FormControl(field.value, field.required ? Validators.required : undefined);
+const dateControl = (field: FieldValue<string>) =>
+  new FormControl(field.value, field.required ? Validators.required : undefined);
 const notimplemented = (def) => null as FormControl;
 const controlmap: { [type in FieldType]: (def) => FormControl } = {
   Text: textControl,
   Dropdown: singleChoiceControl,
-  Date: notimplemented,
+  Date: dateControl,
   Checkbox: checkboxControl,
   Number: numberControl,
   Radio: singleChoiceControl
