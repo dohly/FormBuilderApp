@@ -1,6 +1,6 @@
 
 import { FormControl, Validators, FormGroup } from '@angular/forms';
-import { FieldValue, TextFieldDefinition } from './models/fieldValue';
+import { FieldValue, TextFieldDefinition, NumberFieldDefinition } from './models/fieldValue';
 import { FieldType } from './models/fieldDefinition';
 export const gettoken = () => localStorage.getItem('token');
 
@@ -17,6 +17,19 @@ const textControl = (field: TextFieldDefinition) => {
   }
   return new FormControl(field.value || '', validators);
 };
+const numberControl = (field: NumberFieldDefinition) => {
+  let validators = [];
+  if (field.required) {
+    validators = [Validators.required];
+  }
+  if (field.max) {
+    validators = [...validators, Validators.max(field.max)];
+  }
+  if (field.min) {
+    validators = [...validators, Validators.min(field.min)];
+  }
+  return new FormControl(field.value || '', validators);
+};
 const checkboxControl = (field: FieldValue<boolean>) =>
   new FormControl(field.value, field.required ? Validators.requiredTrue : undefined);
 const singleChoiceControl = (field: FieldValue<string>) =>
@@ -27,7 +40,7 @@ const controlmap: { [type in FieldType]: (def) => FormControl } = {
   Dropdown: singleChoiceControl,
   Date: notimplemented,
   Checkbox: checkboxControl,
-  Number: notimplemented,
+  Number: numberControl,
   Radio: singleChoiceControl
 };
 export function toFormGroup(fields: FieldValue<any>[]) {

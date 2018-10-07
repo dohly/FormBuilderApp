@@ -31,5 +31,6 @@ namespace Domain
             (k, v) =>v.Type == type ? null : new ValidationError(k, "wrong type");
         public static Validator ShouldBeIn(IEnumerable<string> possibleValues) =>
             (k, v) => possibleValues.Any(x=>x==v.Value<string>()) ? null : new ValidationError(k, "wrong option");
+
     }
 }

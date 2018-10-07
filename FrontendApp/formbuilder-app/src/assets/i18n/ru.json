@@ -1,6 +1,6 @@
 {
   "APP_NAME": "Построитель форм",
-  "ACCESS_DENIED":"Доступ запрещен",
+  "ACCESS_DENIED": "Доступ запрещен",
   "SET_API_ADDRESS": "Укажите адрес АПИ",
   "API_ADDRESS": "API URL",
   "CONNECT": "Подключиться",
@@ -19,6 +19,14 @@
   "NOT_FOUND": "404 - страница не найдена",
   "FORMS-LIST": {
     "NAME": "Название формы",
-    "FIELDS_COUNT": "Кол-во полей"
+    "FIELDS_COUNT": "Кол-во полей",
+    "OBJECTS_COUNT": "Кол-во объектов"
+  },
+  "VALIDATION": {
+    "REQUIRED": "Обязательное поле",
+    "MAX_LENGTH": "Макс. длина {{requiredLength}} символов",
+    "MIN_LENGTH": "Мин. длина {{requiredLength}} символов",
+    "MAX": "Максимально допустимое значение {{max}}",
+    "MIN": "Минимально допустимое значение {{min}}"
   }
 }

@@ -1,4 +1,5 @@
 <span *ngIf="errors && errors['required']">{{'VALIDATION.REQUIRED'|translate}}</span>
 <span *ngIf="errors && errors['maxlength']">{{'VALIDATION.MAX_LENGTH'|translate:errors['maxlength']}}</span>
 <span *ngIf="errors && errors['minlength']">{{'VALIDATION.MIN_LENGTH'|translate:errors['minlength']}}</span>
-<!-- {{errors|json}} -->
+<span *ngIf="errors && errors['max']">{{'VALIDATION.MAX'|translate:errors['max']}}</span>
+<span *ngIf="errors && errors['min']">{{'VALIDATION.MIN'|translate:errors['min']}}</span>

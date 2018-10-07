@@ -40,6 +40,8 @@ namespace Infrastructure
                     { "id1","option 1"},
                     {"id2","option 2" }
                 }, true))
+            .AddField(()=> new NumberFieldDefinition("RN", "Req_Number>4",true).GreaterThan(4))
+            .AddField(()=> new NumberFieldDefinition("ON", "Op_Number<6",false).LessThan(4))
         //.WithCheckBox(()=>new C,
    
     };

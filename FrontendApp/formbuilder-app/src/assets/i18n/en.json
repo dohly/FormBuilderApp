@@ -25,6 +25,8 @@
   "VALIDATION":{
     "REQUIRED":"Required field",
     "MAX_LENGTH":"Max length is {{requiredLength}}",
-    "MIN_LENGTH":"Min length is {{requiredLength}}"
+    "MIN_LENGTH":"Min length is {{requiredLength}}",
+    "MAX":"Maximum is {{max}}",
+    "MIN":"Minimum is {{min}}"
   }
 }

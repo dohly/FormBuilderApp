@@ -15,6 +15,15 @@
     <th mat-header-cell *matHeaderCellDef> {{'FORMS-LIST.OBJECTS_COUNT'|translate}} </th>
     <td mat-cell *matCellDef="let element"> {{element.objectsCount}} </td>
   </ng-container>
+  <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> </th>
+      <td mat-cell *matCellDef="let element"> <a mat-icon-button color="primary" [routerLink]="['/new', element.id]">
+            <mat-icon>playlist_add</mat-icon>
+          </a>
+          <a mat-icon-button color="primary" [routerLink]="['/objects', element.id]">
+            <mat-icon>view_list</mat-icon>
+          </a> </td>
+    </ng-container>
 
   <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
   <ng-container matColumnDef="expandedDetail">
